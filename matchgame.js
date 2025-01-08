@@ -43,7 +43,6 @@ const generateBaseballGamertag = () => {
     
     return `${adjective}${noun}${numbers}`;
 };
-
 // Leaderboard handling
 class LeaderboardManager {
     constructor() {
@@ -71,9 +70,8 @@ class LeaderboardManager {
 
     formatTime = (seconds) => {
         const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = seconds % 60;
-        const milliseconds = Math.floor((seconds % 1) * 1000);
-        return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`;
+        const remainingSeconds = Math.floor(seconds % 60);
+        return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
     };
 
     addScore(timeInSeconds, moves, playerName) {
@@ -106,7 +104,6 @@ class LeaderboardManager {
         this.saveToStorage();
     }
 }
-
 class MemoryGame extends React.Component {
     constructor(props) {
         super(props);
@@ -115,14 +112,14 @@ class MemoryGame extends React.Component {
             flipped: [],
             matched: [],
             moves: 0,
-            timer: 0.000,
+            timer: 0,
             timerActive: false,
             gameWon: false,
             agreedToRules: false,
             gamePhase: 'howToPlay',
             leaderboard: new LeaderboardManager(),
             playerGamertag: null,
-            announcement: '' // For screen reader announcements
+            announcement: ''
         };
         this.announcementTimeoutId = null;
         this.cardRefs = [];
@@ -130,7 +127,6 @@ class MemoryGame extends React.Component {
 
     componentDidMount() {
         this.initializeGame();
-        // Add keyboard listener for game controls
         document.addEventListener('keydown', this.handleKeyPress);
     }
 
@@ -141,7 +137,6 @@ class MemoryGame extends React.Component {
             clearTimeout(this.announcementTimeoutId);
         }
     }
-
     announce = (message, duration = 1000) => {
         this.setState({ announcement: message });
         if (this.announcementTimeoutId) {
@@ -161,9 +156,9 @@ class MemoryGame extends React.Component {
     startTimer = () => {
         this.timerInterval = setInterval(() => {
             this.setState(prevState => ({
-                timer: prevState.timer + 0.01
+                timer: prevState.timer + 1
             }));
-        }, 10);
+        }, 1000);  // 1 second interval
     };
 
     stopTimer = () => {
@@ -174,7 +169,7 @@ class MemoryGame extends React.Component {
 
     formatTime = (seconds) => {
         const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = seconds % 60;
+        const remainingSeconds = Math.floor(seconds % 60);
         return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
     };
 
@@ -259,9 +254,32 @@ class MemoryGame extends React.Component {
         this.setState({ gamePhase: 'gameOver' });
         this.announce(`Congratulations! Game completed in ${this.formatTime(timer)} with ${moves} moves!`);
     };
-
     renderHowToPlay = () => {
         const { agreedToRules, playerGamertag } = this.state;
+        
+        const linkBoxStyle = {
+            backgroundColor: 'transparent',
+            color: CONSTANTS.COLORS.raysYellow,
+            border: `2px solid ${CONSTANTS.COLORS.raysYellow}`,
+            borderRadius: '5px',
+            padding: '8px 15px',
+            fontSize: '12px',
+            fontWeight: 'bold',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease'
+        };
+
+        const linkBoxContainerStyle = {
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '10px',
+            marginBottom: '25px',
+            width: '100%',
+            backgroundColor: CONSTANTS.COLORS.navy,
+            padding: '15px',
+            borderRadius: '10px'
+        };
+
         return React.createElement('div', {
             role: 'dialog',
             'aria-modal': true,
@@ -276,7 +294,8 @@ class MemoryGame extends React.Component {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                padding: '20px'
+                padding: '20px',
+                zIndex: 1000
             }
         }, React.createElement('div', {
             style: {
@@ -284,25 +303,67 @@ class MemoryGame extends React.Component {
                 padding: '30px',
                 borderRadius: '10px',
                 maxWidth: '500px',
+                width: '100%',
                 textAlign: 'center'
             }
         }, [
+            // Link boxes container
+            React.createElement('div', {
+                key: 'link-boxes',
+                style: linkBoxContainerStyle
+            }, [
+                React.createElement('button', {
+                    key: 'support',
+                    style: linkBoxStyle,
+                    onClick: () => window.open('https://www.mlb.com/rays/official-information/contact'),
+                    onMouseOver: (e) => e.target.style.backgroundColor = CONSTANTS.COLORS.lightBlue,
+                    onMouseOut: (e) => e.target.style.backgroundColor = CONSTANTS.COLORS.white
+                }, 'Support'),
+                React.createElement('button', {
+                    key: 'tou',
+                    style: linkBoxStyle,
+                    onClick: () => window.open('https://www.mlb.com/official-information/terms-of-use'),
+                    onMouseOver: (e) => e.target.style.backgroundColor = CONSTANTS.COLORS.lightBlue,
+                    onMouseOut: (e) => e.target.style.backgroundColor = CONSTANTS.COLORS.white
+                }, 'MLB TOU'),
+                React.createElement('button', {
+                    key: 'privacy',
+                    style: linkBoxStyle,
+                    onClick: () => window.open('https://www.mlb.com/official-information/privacy-policy'),
+                    onMouseOver: (e) => e.target.style.backgroundColor = CONSTANTS.COLORS.lightBlue,
+                    onMouseOut: (e) => e.target.style.backgroundColor = CONSTANTS.COLORS.white
+                }, 'MLB Privacy Policy')
+            ]),
+
+            // Title and Instructions
             React.createElement('h2', {
-                id: 'howToPlayTitle',
                 key: 'title',
-                style: { color: CONSTANTS.COLORS.navy, marginBottom: '20px' }
+                id: 'howToPlayTitle',
+                style: { 
+                    color: CONSTANTS.COLORS.navy, 
+                    marginBottom: '20px',
+                    marginTop: '20px' 
+                }
             }, 'HOW TO PLAY'),
+            
             React.createElement('div', {
                 key: 'instructions',
-                style: { marginBottom: '20px', lineHeight: '1.5', textAlign: 'left' }
+                style: { 
+                    marginBottom: '20px', 
+                    lineHeight: '1.5', 
+                    textAlign: 'left' 
+                }
             }, [
-                React.createElement('p', { 
+                React.createElement('p', {
                     key: 'gamertag',
                     style: { marginBottom: '15px' }
                 }, `Your Gamertag: ${playerGamertag}`),
-                React.createElement('ul', { 
-                    role: 'list',
-                    style: { listStyle: 'none', padding: 0 } 
+                React.createElement('ul', {
+                    key: 'rules-list',
+                    style: { 
+                        listStyle: 'none', 
+                        padding: 0 
+                    }
                 }, [
                     React.createElement('li', { key: 'rule1', style: { marginBottom: '10px' }},
                         '• Match pairs of Rays player cards to win!'
@@ -318,8 +379,10 @@ class MemoryGame extends React.Component {
                     )
                 ])
             ]),
+
+            // Agreement checkbox
             React.createElement('div', {
-                key: 'checkbox-container',
+                key: 'agreement',
                 style: { 
                     display: 'flex', 
                     alignItems: 'center', 
@@ -331,8 +394,8 @@ class MemoryGame extends React.Component {
             }, [
                 React.createElement('input', {
                     key: 'checkbox',
-                    id: 'rulesCheckbox',
                     type: 'checkbox',
+                    id: 'rulesCheckbox',
                     checked: agreedToRules,
                     onChange: () => this.setState({ agreedToRules: !agreedToRules }),
                     style: { marginRight: '10px' }
@@ -343,6 +406,8 @@ class MemoryGame extends React.Component {
                     style: { fontSize: '14px' }
                 }, 'I agree to the game rules and policies')
             ]),
+
+            // Start button
             React.createElement('button', {
                 key: 'start-button',
                 onClick: () => {
@@ -351,7 +416,6 @@ class MemoryGame extends React.Component {
                         this.announce('Game started');
                     }
                 },
-                'aria-disabled': !agreedToRules,
                 style: {
                     width: '100%',
                     backgroundColor: agreedToRules ? CONSTANTS.COLORS.navy : '#ccc',
@@ -364,7 +428,6 @@ class MemoryGame extends React.Component {
             }, 'Start Game')
         ]));
     };
-
     renderGameOver = () => {
         const { moves, leaderboard, playerGamertag, timer } = this.state;
         return React.createElement('div', {
@@ -507,10 +570,78 @@ class MemoryGame extends React.Component {
             }, 'Play Again')
         ]));
     };
-
     render() {
         const { cards, flipped, matched, moves, gamePhase, timer, announcement } = this.state;
-
+    
+        const legalLinkStyle = {
+            backgroundColor: 'transparent',
+            color: CONSTANTS.COLORS.raysYellow,
+            border: `2px solid ${CONSTANTS.COLORS.raysYellow}`,
+            borderRadius: '5px',
+            padding: '8px 15px',
+            fontSize: '12px',
+            fontWeight: 'bold',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease'
+        };
+    
+        const legalLinksContainer = {
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '10px',
+            marginBottom: '25px',
+            width: '100%',
+            backgroundColor: CONSTANTS.COLORS.navy,
+            padding: '15px',
+            borderRadius: '10px'
+        };
+    
+        // Create reusable legal links component
+        const renderLegalLinks = () => React.createElement('div', {
+            key: 'legal-links',
+            style: legalLinksContainer
+        }, [
+            React.createElement('button', {
+                key: 'support',
+                style: legalLinkStyle,
+                onClick: () => window.open('https://www.mlb.com/rays/official-information/contact'),
+                onMouseOver: (e) => {
+                    e.target.style.backgroundColor = CONSTANTS.COLORS.raysYellow;
+                    e.target.style.color = CONSTANTS.COLORS.navy;
+                },
+                onMouseOut: (e) => {
+                    e.target.style.backgroundColor = 'transparent';
+                    e.target.style.color = CONSTANTS.COLORS.raysYellow;
+                }
+            }, 'Support'),
+            React.createElement('button', {
+                key: 'tou',
+                style: legalLinkStyle,
+                onClick: () => window.open('https://www.mlb.com/official-information/terms-of-use'),
+                onMouseOver: (e) => {
+                    e.target.style.backgroundColor = CONSTANTS.COLORS.raysYellow;
+                    e.target.style.color = CONSTANTS.COLORS.navy;
+                },
+                onMouseOut: (e) => {
+                    e.target.style.backgroundColor = 'transparent';
+                    e.target.style.color = CONSTANTS.COLORS.raysYellow;
+                }
+            }, 'MLB TOU'),
+            React.createElement('button', {
+                key: 'privacy',
+                style: legalLinkStyle,
+                onClick: () => window.open('https://www.mlb.com/official-information/privacy-policy'),
+                onMouseOver: (e) => {
+                    e.target.style.backgroundColor = CONSTANTS.COLORS.raysYellow;
+                    e.target.style.color = CONSTANTS.COLORS.navy;
+                },
+                onMouseOut: (e) => {
+                    e.target.style.backgroundColor = 'transparent';
+                    e.target.style.color = CONSTANTS.COLORS.raysYellow;
+                }
+            }, 'MLB Privacy Policy')
+        ]);
+    
         return React.createElement('div', {
             role: 'main',
             style: {
@@ -522,27 +653,17 @@ class MemoryGame extends React.Component {
                 position: 'relative'
             }
         }, [
-            // Screen reader announcements
             React.createElement('div', {
                 key: 'announcements',
                 role: 'status',
                 'aria-live': 'polite',
-                style: {
-                    position: 'absolute',
-                    width: '1px',
-                    height: '1px',
-                    padding: '0',
-                    margin: '-1px',
-                    overflow: 'hidden',
-                    clip: 'rect(0, 0, 0, 0)',
-                    whiteSpace: 'nowrap',
-                    border: '0'
-                }
+                className: 'status-message'
             }, announcement),
-
-            React.createElement('header', {
-                key: 'header',
-                role: 'banner',
+    
+            gamePhase === 'playing' && renderLegalLinks(),
+    
+            React.createElement('div', {
+                key: 'game-header',
                 style: {
                     display: 'flex',
                     justifyContent: 'space-between',
@@ -594,7 +715,7 @@ class MemoryGame extends React.Component {
                     }
                 }, 'Reset Game')
             ]),
-
+    
             React.createElement('div', {
                 key: 'grid',
                 role: 'grid',
@@ -609,8 +730,9 @@ class MemoryGame extends React.Component {
                 React.createElement('button', {
                     key: card.id,
                     onClick: () => this.handleCardClick(index),
-                    'aria-label': `${flipped.includes(index) || matched.includes(index) ?
-                        card.description :
+                    className: `card ${(flipped.includes(index) || matched.includes(index)) ? 'flipped' : ''}`,
+                    'aria-label': `${flipped.includes(index) || matched.includes(index) ? 
+                        card.description : 
                         'Card face down'}${matched.includes(index) ? ' (matched)' : ''}`,
                     'aria-pressed': flipped.includes(index) || matched.includes(index),
                     style: {
@@ -619,34 +741,63 @@ class MemoryGame extends React.Component {
                         padding: '0',
                         border: 'none',
                         backgroundColor: 'transparent',
-                        cursor: 'pointer',
-                        position: 'relative',
-                        outline: 'none'
+                        cursor: 'pointer'
                     }
                 }, React.createElement('div', {
-                    style: {
-                        width: '100%',
-                        height: '100%',
-                        transition: 'transform 0.3s',
-                        transformStyle: 'preserve-3d',
-                        transform: flipped.includes(index) || matched.includes(index) ? 'rotateY(0deg)' : 'rotateY(180deg)'
-                    }
-                }, React.createElement('img', {
-                    src: flipped.includes(index) || matched.includes(index) ? card.imagePath : CONSTANTS.CARD_BACK.path,
-                    alt: flipped.includes(index) || matched.includes(index) ? card.description : 'Card back',
-                    style: {
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        borderRadius: '8px'
-                    }
-                })))
+                    className: 'card-inner'
+                }, [
+                    React.createElement('div', {
+                        key: 'front',
+                        className: 'card-front'
+                    }, React.createElement('img', {
+                        src: card.imagePath,
+                        alt: card.description,
+                        style: {
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            borderRadius: '8px'
+                        }
+                    })),
+                    React.createElement('div', {
+                        key: 'back',
+                        className: 'card-back'
+                    }, React.createElement('img', {
+                        src: CONSTANTS.CARD_BACK.path,
+                        alt: CONSTANTS.CARD_BACK.description,
+                        style: {
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            borderRadius: '8px'
+                        }
+                    }))
+                ]))
             )),
-
+    
             gamePhase === 'howToPlay' && this.renderHowToPlay(),
             gamePhase === 'gameOver' && this.renderGameOver()
         ]);
     }
 }
 
-export default MemoryGame;
+// Initialize the app
+const container = document.getElementById('root');
+ReactDOM.render(
+    React.createElement('div', { className: 'game-container' },
+        [
+            React.createElement('h1', {
+                style: {
+                    textAlign: 'center',
+                    color: CONSTANTS.COLORS.navy,
+                    fontSize: '32px',
+                    marginBottom: '30px',
+                    textShadow: '2px 2px 4px rgba(0,0,0,0.1)'
+                }
+            }, 'MEMORAY MATCH'),
+            React.createElement(MemoryGame)
+        ]
+    ),
+    container
+);
+
