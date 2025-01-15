@@ -43,6 +43,29 @@ const generateBaseballGamertag = () => {
     
     return `${adjective}${noun}${numbers}`;
 };
+
+//Function to adjust the grid's scaling dynamically
+const adjustGridScaling = () => {
+    //Select the grid and all cards
+    const grid = document.querySelector('div[role="grid"]');
+    const cards = document.querySelectorAll('.card');
+
+    //Avoids errors if grid is missing
+    if (!grid || cards.length === 0) return;
+
+    //Get grid width
+    const containerWidth = grid.offsetWidth;
+
+    //Calculate card size based on grid width (with some padding)
+    const cardSize = Math.max(60, Math.floor(containerWidth / 4) - 10);
+
+    cards.forEach(card => {
+        card.style.width = `${cardSize}px`;
+        card.style.height = `${cardSize}px`;
+    });
+};
+
+
 // Leaderboard handling
 class LeaderboardManager {
     constructor() {
@@ -128,15 +151,26 @@ class MemoryGame extends React.Component {
     componentDidMount() {
         this.initializeGame();
         document.addEventListener('keydown', this.handleKeyPress);
+
+        //Adjust grid scaling after rendering
+        adjustGridScaling();
+        window.addEventListener('resize', adjustGridScaling);
+        window.addEventListener('load', adjustGridScaling); 
     }
 
     componentWillUnmount() {
         this.stopTimer();
         document.removeEventListener('keydown', this.handleKeyPress);
+        
+        //Remove event listeners for grid scaling
+        window.removeEventListener('resize', adjustGridScaling);
+        window.removeEventListener('load', adjustGridScaling);
+
         if (this.announcementTimeoutId) {
             clearTimeout(this.announcementTimeoutId);
         }
     }
+
     announce = (message, duration = 1000) => {
         this.setState({ announcement: message });
         if (this.announcementTimeoutId) {
@@ -781,20 +815,13 @@ class MemoryGame extends React.Component {
     }
 }
 
-// Initialize the app
+//Initialize the app
+/*Styling centralized in css, inline styles removed*/
 const container = document.getElementById('root');
 ReactDOM.render(
     React.createElement('div', { className: 'game-container' },
         [
-            React.createElement('h1', {
-                style: {
-                    textAlign: 'center',
-                    color: CONSTANTS.COLORS.navy,
-                    fontSize: '32px',
-                    marginBottom: '30px',
-                    textShadow: '2px 2px 4px rgba(0,0,0,0.1)'
-                }
-            }, 'MEMORAY MATCH'),
+            React.createElement('h1', {}, 'MEMORAY MATCH'),
             React.createElement(MemoryGame)
         ]
     ),

@@ -1,0 +1,110 @@
+/*Body and container styles*/
+/*Edits made by Alina Palomino*/
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Press Start 2P', cursive;
+    background-color: #95C0F7;
+}
+
+/*Edit: enable flexbox, stack and center items vertically*/
+.game-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/*Responsive grid layout*/
+div[role="grid"] {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Dynamic scaling */
+    gap: 10px;
+    z-index: 1;
+}
+
+/*Card styles*/
+.card {
+    aspect-ratio: 1 / 1;
+    perspective: 1000px;
+    transition: transform 0.3s;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+.card:focus {
+    outline: 3px solid #4A90E2;
+    outline-offset: 2px;
+    transform: scale(1.02);
+}
+
+/*Card faces*/
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-front {
+    transform: rotateY(180deg);
+    background-color: white;
+}
+
+.card-back {
+    background-color: #092C5C;
+}
+
+/*Responsive font sizes*/
+/*Edit h1: Ensure text remains center*/
+h1 {
+    text-align: center;
+    color: #092C5C;
+    font-size: 32px;
+    margin-bottom: 0 auto 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+}
+
+@media (max-width: 600px) {
+    .game-container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    div[role="grid"] {
+        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+        gap: 5px;
+    }
+}
