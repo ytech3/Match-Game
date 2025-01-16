@@ -235,7 +235,7 @@ class MemoryGame extends React.Component {
             gameWon: false,
             gamePhase: this.state.agreedToRules ? 'playing' : 'howToPlay'
         }, () => {
-            this.announce('New game started');
+            //this.announce('New game started');
         });
     };
 
@@ -255,7 +255,7 @@ class MemoryGame extends React.Component {
 
         const newFlipped = [...flipped, clickedIndex];
         this.setState({ flipped: newFlipped });
-        this.announce(`Card revealed: ${cards[clickedIndex].description}`);
+        //this.announce(`Card revealed: ${cards[clickedIndex].description}`);
 
         if (newFlipped.length === 2) {
             this.setState({ moves: moves + 1 });
@@ -269,7 +269,7 @@ class MemoryGame extends React.Component {
                     gamePhase: newMatched.length === cards.length ? 'gameOver' : 'playing',
                     gameWon: newMatched.length === cards.length
                 }, () => {
-                    this.announce('Match found! ' + cards[firstIndex].description);
+                    //this.announce('Match found! ' + cards[firstIndex].description);
                     if (this.state.gameWon) {
                         this.handleGameWon();
                     }
@@ -277,7 +277,7 @@ class MemoryGame extends React.Component {
             } else {
                 setTimeout(() => {
                     this.setState({ flipped: [] });
-                    this.announce('No match. Cards flipped back.');
+                    //this.announce('No match. Cards flipped back.');
                 }, 1000);
             }
         }
@@ -288,7 +288,7 @@ class MemoryGame extends React.Component {
         this.stopTimer();
         leaderboard.addScore(timer, moves, playerGamertag);
         this.setState({ gamePhase: 'gameOver' });
-        this.announce(`Congratulations! Game completed in ${this.formatTime(timer)} with ${moves} moves!`);
+        //this.announce(`Congratulations! Game completed in ${this.formatTime(timer)} with ${moves} moves!`);
     };
 
     renderHowToPlay = () => {
@@ -380,7 +380,7 @@ class MemoryGame extends React.Component {
             onClick: () => {
                 if (agreedToRules) {
                     this.setState({ gamePhase: 'playing' });
-                    this.announce('Game started');
+                    //this.announce('Game started');
                 }
             },
             className: `how-to-play-start-button ${agreedToRules ? '' : 'disabled'}`
