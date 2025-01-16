@@ -385,148 +385,61 @@ class MemoryGame extends React.Component {
     ]));
 };
     
-    renderGameOver = () => {
-        const { moves, leaderboard, playerGamertag, timer } = this.state;
-        return React.createElement('div', {
-            role: 'dialog',
-            'aria-modal': true,
-            'aria-labelledby': 'gameOverTitle',
-            style: {
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: '20px'
-            }
-        }, React.createElement('div', {
-            style: {
-                backgroundColor: CONSTANTS.COLORS.white,
-                padding: '30px',
-                borderRadius: '10px',
-                maxWidth: '500px'
-            }
+renderGameOver = () => {
+    const { moves, leaderboard, playerGamertag, timer } = this.state;
+
+    return React.createElement('div', {
+        role: 'dialog',
+        'aria-modal': true,
+        'aria-labelledby': 'gameOverTitle',
+        className: 'game-over-overlay'
+    }, React.createElement('div', {
+        className: 'game-over-panel'
+    }, [
+        React.createElement('h2', {
+            id: 'gameOverTitle',
+            key: 'title',
+            className: 'game-over-title'
+        }, 'Game Over!'),
+        React.createElement('p', {
+            key: 'gamertag',
+            className: 'game-over-gamertag'
+        }, playerGamertag),
+        React.createElement('p', {
+            key: 'score',
+            className: 'game-over-score'
+        }, `Completed in ${this.formatTime(timer)} with ${moves} moves!`),
+        React.createElement('table', {
+            className: 'game-over-leaderboard',
+            role: 'table'
         }, [
-            React.createElement('h2', {
-                id: 'gameOverTitle',
-                key: 'title',
-                style: { color: CONSTANTS.COLORS.navy, marginBottom: '20px', textAlign: 'center' }
-            }, 'Game Over!'),
-            React.createElement('p', {
-                key: 'gamertag',
-                style: { textAlign: 'center', marginBottom: '10px', fontWeight: 'bold' }
-            }, playerGamertag),
-            React.createElement('p', {
-                key: 'score',
-                style: { textAlign: 'center', marginBottom: '20px' }
-            }, `Completed in ${this.formatTime(timer)} with ${moves} moves!`),
-            React.createElement('div', {
-                key: 'leaderboard',
-                role: 'region',
-                'aria-label': 'Leaderboard',
-                style: { marginBottom: '20px' }
-            }, [
-                React.createElement('h3', {
-                    key: 'leaderboard-title',
-                    style: { color: CONSTANTS.COLORS.navy, marginBottom: '10px', textAlign: 'center' }
-                }, 'Top Scores'),
-                React.createElement('div', {
-                    key: 'leaderboard-table',
-                    role: 'table',
-                    'aria-label': 'Top scores table',
-                    style: {
-                        display: 'grid',
-                        gridTemplateColumns: 'auto 1fr 1fr',
-                        gap: '10px'
-                    }
+            React.createElement('thead', { key: 'thead' }, React.createElement('tr', {}, [
+                React.createElement('th', { key: 'header-player' }, 'Player'),
+                React.createElement('th', { key: 'header-time' }, 'Time'),
+                React.createElement('th', { key: 'header-moves' }, 'Moves')
+            ])),
+            React.createElement('tbody', { key: 'tbody' }, leaderboard.getTopScores().map((entry, index) =>
+                React.createElement('tr', {
+                    key: `row-${index}`,
+                    className: entry.playerName === playerGamertag ? 'highlight' : ''
                 }, [
-                    React.createElement('div', {
-                        role: 'row',
-                        key: 'header-row',
-                        style: {
-                            display: 'contents',
-                            fontWeight: 'bold'
-                        }
-                    }, [
-                        React.createElement('div', {
-                            role: 'columnheader',
-                            key: 'header-player',
-                            style: { padding: '10px', backgroundColor: CONSTANTS.COLORS.lightBlue }
-                        }, 'Player'),
-                        React.createElement('div', {
-                            role: 'columnheader',
-                            key: 'header-time',
-                            style: { padding: '10px', backgroundColor: CONSTANTS.COLORS.lightBlue, textAlign: 'center' }
-                        }, 'Time'),
-                        React.createElement('div', {
-                            role: 'columnheader',
-                            key: 'header-moves',
-                            style: { padding: '10px', backgroundColor: CONSTANTS.COLORS.lightBlue, textAlign: 'center' }
-                        }, 'Moves')
-                    ]),
-                    ...leaderboard.getTopScores().map((entry, index) =>
-                        React.createElement('div', {
-                            role: 'row',
-                            key: `score-${index}`,
-                            style: {
-                                display: 'contents'
-                            }
-                        }, [
-                            React.createElement('div', {
-                                role: 'cell',
-                                key: 'player',
-                                style: {
-                                    padding: '5px',
-                                    backgroundColor: entry.playerName === playerGamertag ?
-                                        CONSTANTS.COLORS.lightBlue : 'transparent'
-                                }
-                            }, entry.playerName),
-                            React.createElement('div', {
-                                role: 'cell',
-                                key: 'time',
-                                style: {
-                                    padding: '5px',
-                                    textAlign: 'center',
-                                    backgroundColor: entry.playerName === playerGamertag ?
-                                        CONSTANTS.COLORS.lightBlue : 'transparent'
-                                }
-                            }, entry.formattedTime),
-                            React.createElement('div', {
-                                role: 'cell',
-                                key: 'moves',
-                                style: {
-                                    padding: '5px',
-                                    textAlign: 'center',
-                                    backgroundColor: entry.playerName === playerGamertag ?
-                                        CONSTANTS.COLORS.lightBlue : 'transparent'
-                                }
-                            }, entry.moves)
-                        ])
-                    )
+                    React.createElement('td', { key: 'player' }, entry.playerName),
+                    React.createElement('td', { key: 'time' }, entry.formattedTime),
+                    React.createElement('td', { key: 'moves' }, entry.moves)
                 ])
-            ]),
-            React.createElement('button', {
-                key: 'play-again',
-                onClick: () => {
-                    this.initializeGame();
-                    this.setState({ gamePhase: 'playing' });
-                },
-                style: {
-                    width: '100%',
-                    backgroundColor: CONSTANTS.COLORS.navy,
-                    color: CONSTANTS.COLORS.white,
-                    padding: '10px 20px',
-                    border: 'none',
-                    borderRadius: '5px',
-                    cursor: 'pointer'
-                }
-            }, 'Play Again')
-        ]));
-    };
+            ))
+        ]),
+        React.createElement('button', {
+            key: 'play-again',
+            onClick: () => {
+                this.initializeGame();
+                this.setState({ gamePhase: 'playing' });
+            },
+            className: 'game-over-play-again'
+        }, 'Play Again')
+    ]));
+};
+
     render() {
         const { cards, flipped, matched, moves, gamePhase, timer, announcement } = this.state;
     
