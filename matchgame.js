@@ -48,16 +48,13 @@ const generateBaseballGamertag = () => {
 //Function to adjust the grid's scaling dynamically
 const adjustGridScaling = () => {
     //Select the grid and all cards
-    const grid = document.querySelector('div[role="grid"]');
+    const grid = document.querySelector('.memory-card-grid');
     const cards = document.querySelectorAll('.card');
 
     //Avoids errors if grid is missing
     if (!grid || cards.length === 0) return;
 
-    //Get grid width
     const containerWidth = grid.offsetWidth;
-
-    //Calculate card size based on grid width (with some padding)
     const cardSize = Math.max(60, Math.floor(containerWidth / 4) - 10);
 
     cards.forEach(card => {
@@ -624,12 +621,6 @@ class MemoryGame extends React.Component {
                 role: 'grid',
                 'aria-label': 'Memory Card Grid',
                 className: 'memory-card-grid',
-                style: {
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(4, 1fr)',
-                    gap: '10px',
-                    zIndex: 1
-                }
             }, cards.map((card, index) =>
                 React.createElement('button', {
                     key: card.id,
