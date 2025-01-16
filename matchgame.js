@@ -1,3 +1,4 @@
+// Edits made by Alina Palomino
 // Game constants
 const CONSTANTS = {
     COLORS: {
@@ -127,6 +128,7 @@ class LeaderboardManager {
         this.saveToStorage();
     }
 }
+
 class MemoryGame extends React.Component {
     constructor(props) {
         super(props);
@@ -288,180 +290,104 @@ class MemoryGame extends React.Component {
         this.setState({ gamePhase: 'gameOver' });
         this.announce(`Congratulations! Game completed in ${this.formatTime(timer)} with ${moves} moves!`);
     };
+
     renderHowToPlay = () => {
-        const { agreedToRules, playerGamertag } = this.state;
-        
-        const linkBoxStyle = {
-            backgroundColor: 'transparent',
-            color: CONSTANTS.COLORS.raysYellow,
-            border: `2px solid ${CONSTANTS.COLORS.raysYellow}`,
-            borderRadius: '5px',
-            padding: '8px 15px',
-            fontSize: '12px',
-            fontWeight: 'bold',
-            cursor: 'pointer',
-            transition: 'all 0.3s ease'
-        };
+    const { agreedToRules, playerGamertag } = this.state;
 
-        const linkBoxContainerStyle = {
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '10px',
-            marginBottom: '25px',
-            width: '100%',
-            backgroundColor: CONSTANTS.COLORS.navy,
-            padding: '15px',
-            borderRadius: '10px'
-        };
-
-        return React.createElement('div', {
-            role: 'dialog',
-            'aria-modal': true,
-            'aria-labelledby': 'howToPlayTitle',
-            style: {
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: '20px',
-                zIndex: 1000
-            }
-        }, React.createElement('div', {
-            style: {
-                backgroundColor: CONSTANTS.COLORS.white,
-                padding: '30px',
-                borderRadius: '10px',
-                maxWidth: '500px',
-                width: '100%',
-                textAlign: 'center'
-            }
+    return React.createElement('div', {
+        role: 'dialog',
+        'aria-modal': true,
+        'aria-labelledby': 'howToPlayTitle',
+        className: 'how-to-play-overlay'
+    }, React.createElement('div', {
+        className: 'how-to-play-panel'
+    }, [
+        // Link boxes container
+        React.createElement('div', {
+            key: 'link-boxes',
+            className: 'legal-links-container'
         }, [
-            // Link boxes container
-            React.createElement('div', {
-                key: 'link-boxes',
-                style: linkBoxContainerStyle
-            }, [
-                React.createElement('button', {
-                    key: 'support',
-                    style: linkBoxStyle,
-                    onClick: () => window.open('https://www.mlb.com/rays/official-information/contact'),
-                    onMouseOver: (e) => e.target.style.backgroundColor = CONSTANTS.COLORS.lightBlue,
-                    onMouseOut: (e) => e.target.style.backgroundColor = CONSTANTS.COLORS.white
-                }, 'Support'),
-                React.createElement('button', {
-                    key: 'tou',
-                    style: linkBoxStyle,
-                    onClick: () => window.open('https://www.mlb.com/official-information/terms-of-use'),
-                    onMouseOver: (e) => e.target.style.backgroundColor = CONSTANTS.COLORS.lightBlue,
-                    onMouseOut: (e) => e.target.style.backgroundColor = CONSTANTS.COLORS.white
-                }, 'MLB TOU'),
-                React.createElement('button', {
-                    key: 'privacy',
-                    style: linkBoxStyle,
-                    onClick: () => window.open('https://www.mlb.com/official-information/privacy-policy'),
-                    onMouseOver: (e) => e.target.style.backgroundColor = CONSTANTS.COLORS.lightBlue,
-                    onMouseOut: (e) => e.target.style.backgroundColor = CONSTANTS.COLORS.white
-                }, 'MLB Privacy Policy')
-            ]),
-
-            // Title and Instructions
-            React.createElement('h2', {
-                key: 'title',
-                id: 'howToPlayTitle',
-                style: { 
-                    color: CONSTANTS.COLORS.navy, 
-                    marginBottom: '20px',
-                    marginTop: '20px' 
-                }
-            }, 'HOW TO PLAY'),
-            
-            React.createElement('div', {
-                key: 'instructions',
-                style: { 
-                    marginBottom: '20px', 
-                    lineHeight: '1.5', 
-                    textAlign: 'left' 
-                }
-            }, [
-                React.createElement('p', {
-                    key: 'gamertag',
-                    style: { marginBottom: '15px' }
-                }, `Your Gamertag: ${playerGamertag}`),
-                React.createElement('ul', {
-                    key: 'rules-list',
-                    style: { 
-                        listStyle: 'none', 
-                        padding: 0 
-                    }
-                }, [
-                    React.createElement('li', { key: 'rule1', style: { marginBottom: '10px' }},
-                        '• Match pairs of Rays player cards to win!'
-                    ),
-                    React.createElement('li', { key: 'rule2', style: { marginBottom: '10px' }},
-                        '• Complete the game in as few moves as possible'
-                    ),
-                    React.createElement('li', { key: 'rule3', style: { marginBottom: '10px' }},
-                        '• Each pair of cards flipped counts as one move'
-                    ),
-                    React.createElement('li', { key: 'rule4', style: { marginBottom: '10px' }},
-                        '• Race against the clock to get the fastest time!'
-                    )
-                ])
-            ]),
-
-            // Agreement checkbox
-            React.createElement('div', {
-                key: 'agreement',
-                style: { 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    marginBottom: '20px',
-                    backgroundColor: CONSTANTS.COLORS.lightBlue,
-                    padding: '10px',
-                    borderRadius: '5px'
-                }
-            }, [
-                React.createElement('input', {
-                    key: 'checkbox',
-                    type: 'checkbox',
-                    id: 'rulesCheckbox',
-                    checked: agreedToRules,
-                    onChange: () => this.setState({ agreedToRules: !agreedToRules }),
-                    style: { marginRight: '10px' }
-                }),
-                React.createElement('label', {
-                    key: 'checkbox-label',
-                    htmlFor: 'rulesCheckbox',
-                    style: { fontSize: '14px' }
-                }, 'I agree to the game rules and policies')
-            ]),
-
-            // Start button
             React.createElement('button', {
-                key: 'start-button',
-                onClick: () => {
-                    if (agreedToRules) {
-                        this.setState({ gamePhase: 'playing' });
-                        this.announce('Game started');
-                    }
-                },
-                style: {
-                    width: '100%',
-                    backgroundColor: agreedToRules ? CONSTANTS.COLORS.navy : '#ccc',
-                    color: CONSTANTS.COLORS.white,
-                    padding: '10px 20px',
-                    border: 'none',
-                    borderRadius: '5px',
-                    cursor: agreedToRules ? 'pointer' : 'not-allowed'
+                key: 'support',
+                onClick: () => window.open('https://www.mlb.com/rays/official-information/contact'),
+                className: 'legal-link'
+            }, 'Support'),
+            React.createElement('button', {
+                key: 'tou',
+                onClick: () => window.open('https://www.mlb.com/official-information/terms-of-use'),
+                className: 'legal-link'
+            }, 'MLB TOU'),
+            React.createElement('button', {
+                key: 'privacy',
+                onClick: () => window.open('https://www.mlb.com/official-information/privacy-policy'),
+                className: 'legal-link'
+            }, 'MLB Privacy Policy')
+        ]),
+
+        // Title and Instructions
+        React.createElement('h2', {
+            key: 'title',
+            id: 'howToPlayTitle',
+            className: 'how-to-play-title'
+        }, 'HOW TO PLAY'),
+
+        React.createElement('div', {
+            key: 'instructions',
+            className: 'how-to-play-instructions'
+        }, [
+            React.createElement('p', {
+                key: 'gamertag'
+            }, `Your Gamertag: ${playerGamertag}`),
+            React.createElement('ul', {
+                key: 'rules-list'
+            }, [
+                React.createElement('li', { key: 'rule1' },
+                    '• Match pairs of Rays player cards to win!'
+                ),
+                React.createElement('li', { key: 'rule2' },
+                    '• Complete the game in as few moves as possible'
+                ),
+                React.createElement('li', { key: 'rule3' },
+                    '• Each pair of cards flipped counts as one move'
+                ),
+                React.createElement('li', { key: 'rule4' },
+                    '• Race against the clock to get the fastest time!'
+                )
+            ])
+        ]),
+
+        // Agreement checkbox
+        React.createElement('div', {
+            key: 'agreement',
+            className: 'how-to-play-agreement'
+        }, [
+            React.createElement('input', {
+                key: 'checkbox',
+                type: 'checkbox',
+                id: 'rulesCheckbox',
+                checked: agreedToRules,
+                onChange: () => this.setState({ agreedToRules: !agreedToRules })
+            }),
+            React.createElement('label', {
+                key: 'checkbox-label',
+                htmlFor: 'rulesCheckbox'
+            }, 'I agree to the game rules and policies')
+        ]),
+
+        // Start button
+        React.createElement('button', {
+            key: 'start-button',
+            onClick: () => {
+                if (agreedToRules) {
+                    this.setState({ gamePhase: 'playing' });
+                    this.announce('Game started');
                 }
-            }, 'Start Game')
-        ]));
-    };
+            },
+            className: `how-to-play-start-button ${agreedToRules ? '' : 'disabled'}`
+        }, 'Start Game')
+    ]));
+};
+    
     renderGameOver = () => {
         const { moves, leaderboard, playerGamertag, timer } = this.state;
         return React.createElement('div', {
@@ -607,72 +533,25 @@ class MemoryGame extends React.Component {
     render() {
         const { cards, flipped, matched, moves, gamePhase, timer, announcement } = this.state;
     
-        const legalLinkStyle = {
-            backgroundColor: 'transparent',
-            color: CONSTANTS.COLORS.raysYellow,
-            border: `2px solid ${CONSTANTS.COLORS.raysYellow}`,
-            borderRadius: '5px',
-            padding: '8px 15px',
-            fontSize: '12px',
-            fontWeight: 'bold',
-            cursor: 'pointer',
-            transition: 'all 0.3s ease'
-        };
-    
-        const legalLinksContainer = {
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '10px',
-            marginBottom: '25px',
-            width: '100%',
-            backgroundColor: CONSTANTS.COLORS.navy,
-            padding: '15px',
-            borderRadius: '10px'
-        };
-    
-        // Create reusable legal links component
+        //Reusable legal links component
         const renderLegalLinks = () => React.createElement('div', {
             key: 'legal-links',
-            style: legalLinksContainer
+            className: 'legal-links-container'
         }, [
             React.createElement('button', {
                 key: 'support',
-                style: legalLinkStyle,
-                onClick: () => window.open('https://www.mlb.com/rays/official-information/contact'),
-                onMouseOver: (e) => {
-                    e.target.style.backgroundColor = CONSTANTS.COLORS.raysYellow;
-                    e.target.style.color = CONSTANTS.COLORS.navy;
-                },
-                onMouseOut: (e) => {
-                    e.target.style.backgroundColor = 'transparent';
-                    e.target.style.color = CONSTANTS.COLORS.raysYellow;
-                }
+                className: 'legal-link',
+                onClick: () => window.open('https://www.mlb.com/rays/official-information/contact')
             }, 'Support'),
             React.createElement('button', {
                 key: 'tou',
-                style: legalLinkStyle,
-                onClick: () => window.open('https://www.mlb.com/official-information/terms-of-use'),
-                onMouseOver: (e) => {
-                    e.target.style.backgroundColor = CONSTANTS.COLORS.raysYellow;
-                    e.target.style.color = CONSTANTS.COLORS.navy;
-                },
-                onMouseOut: (e) => {
-                    e.target.style.backgroundColor = 'transparent';
-                    e.target.style.color = CONSTANTS.COLORS.raysYellow;
-                }
+                className: 'legal-link',
+                onClick: () => window.open('https://www.mlb.com/official-information/terms-of-use')
             }, 'MLB TOU'),
             React.createElement('button', {
                 key: 'privacy',
-                style: legalLinkStyle,
-                onClick: () => window.open('https://www.mlb.com/official-information/privacy-policy'),
-                onMouseOver: (e) => {
-                    e.target.style.backgroundColor = CONSTANTS.COLORS.raysYellow;
-                    e.target.style.color = CONSTANTS.COLORS.navy;
-                },
-                onMouseOut: (e) => {
-                    e.target.style.backgroundColor = 'transparent';
-                    e.target.style.color = CONSTANTS.COLORS.raysYellow;
-                }
+                className: 'legal-link',
+                onClick: () => window.open('https://www.mlb.com/official-information/privacy-policy')
             }, 'MLB Privacy Policy')
         ]);
     
@@ -694,16 +573,16 @@ class MemoryGame extends React.Component {
                 className: 'status-message'
             }, announcement),
     
-            gamePhase === 'playing' && renderLegalLinks(),
-    
+            
             React.createElement('div', {
                 key: 'game-header',
                 style: {
                     display: 'flex',
-                    justifyContent: 'space-between',
+                    justifyContent: 'center',
                     alignItems: 'center',
                     marginBottom: '20px',
-                    zIndex: 1
+                    gap: '10px',
+                    flexWrap: 'wrap'
                 }
             }, [
                 React.createElement('div', {
@@ -718,42 +597,33 @@ class MemoryGame extends React.Component {
                 }, [
                     React.createElement('div', {
                         key: 'moves',
-                        'aria-label': `Moves: ${moves}`,
+                        'aria-label': `Moves:${moves}`,
                         style: {
-                            fontSize: '24px',
+                            fontSize: '18px',
                             fontWeight: 'bold',
-                            color: CONSTANTS.COLORS.navy
+                            color: CONSTANTS.COLORS.navy,
+                            textAlign: 'center'
                         }
                     }, `Moves: ${moves}`),
                     React.createElement('div', {
                         key: 'timer',
                         'aria-label': `Time: ${this.formatTime(timer)}`,
                         style: {
-                            fontSize: '24px',
+                            fontSize: '18px',
                             fontWeight: 'bold',
-                            color: CONSTANTS.COLORS.navy
+                            color: CONSTANTS.COLORS.navy,
+                            textAlign: 'center'
                         }
                     }, `Time: ${this.formatTime(timer)}`)
                 ]),
-                React.createElement('button', {
-                    key: 'reset',
-                    onClick: this.initializeGame,
-                    'aria-label': 'Reset Game',
-                    style: {
-                        padding: '10px 20px',
-                        backgroundColor: CONSTANTS.COLORS.navy,
-                        color: CONSTANTS.COLORS.white,
-                        border: 'none',
-                        borderRadius: '4px',
-                        cursor: 'pointer'
-                    }
-                }, 'Reset Game')
+                
             ]),
-    
+            
             React.createElement('div', {
                 key: 'grid',
                 role: 'grid',
                 'aria-label': 'Memory Card Grid',
+                className: 'memory-card-grid',
                 style: {
                     display: 'grid',
                     gridTemplateColumns: 'repeat(4, 1fr)',
@@ -768,56 +638,71 @@ class MemoryGame extends React.Component {
                     'aria-label': `${flipped.includes(index) || matched.includes(index) ? 
                         card.description : 
                         'Card face down'}${matched.includes(index) ? ' (matched)' : ''}`,
-                    'aria-pressed': flipped.includes(index) || matched.includes(index),
+                        'aria-pressed': flipped.includes(index) || matched.includes(index),
+                        style: {
+                            aspectRatio: '1',
+                            width: '100%',
+                            padding: '0',
+                            border: 'none',
+                            backgroundColor: 'transparent',
+                            cursor: 'pointer'
+                        }
+                    }, React.createElement('div', {
+                        className: 'card-inner'
+                    }, [
+                        React.createElement('div', {
+                            key: 'front',
+                            className: 'card-front'
+                        }, React.createElement('img', {
+                            src: card.imagePath,
+                            alt: card.description,
+                            style: {
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                borderRadius: '8px'
+                            }
+                        })),
+                        React.createElement('div', {
+                            key: 'back',
+                            className: 'card-back'
+                        }, React.createElement('img', {
+                            src: CONSTANTS.CARD_BACK.path,
+                            alt: CONSTANTS.CARD_BACK.description,
+                            style: {
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                borderRadius: '8px'
+                            }
+                        }))
+                    ]))
+                )),
+                React.createElement('div', {
+                    key: 'reset-button-container',
                     style: {
-                        aspectRatio: '1',
-                        width: '100%',
-                        padding: '0',
-                        border: 'none',
-                        backgroundColor: 'transparent',
-                        cursor: 'pointer'
+                        display: 'flex',
+                        justifyContent: 'center',
+                        margin: '15px 0'
                     }
-                }, React.createElement('div', {
-                    className: 'card-inner'
-                }, [
-                    React.createElement('div', {
-                        key: 'front',
-                        className: 'card-front'
-                    }, React.createElement('img', {
-                        src: card.imagePath,
-                        alt: card.description,
-                        style: {
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                            borderRadius: '8px'
-                        }
-                    })),
-                    React.createElement('div', {
-                        key: 'back',
-                        className: 'card-back'
-                    }, React.createElement('img', {
-                        src: CONSTANTS.CARD_BACK.path,
-                        alt: CONSTANTS.CARD_BACK.description,
-                        style: {
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                            borderRadius: '8px'
-                        }
-                    }))
-                ]))
-            )),
-    
-            gamePhase === 'howToPlay' && this.renderHowToPlay(),
-            gamePhase === 'gameOver' && this.renderGameOver()
-        ]);
-    }
-}
+                }, React.createElement('button', {
+                    key: 'reset',
+                    onClick: this.initializeGame,
+                    'aria-label': 'Reset Game',
+                    className: 'reset-button'
+                }, 'Reset Game')),
 
-//Initialize the app
-/*Styling centralized in css, inline styles removed*/
-const container = document.getElementById('root');
+                gamePhase === 'playing' && renderLegalLinks(),
+                
+                gamePhase === 'howToPlay' && this.renderHowToPlay(),
+                gamePhase === 'gameOver' && this.renderGameOver()
+            ]);
+        }
+    }
+    
+    //Initialize the app
+    //Styling centralized in css, inline styles removed -AP
+    const container = document.getElementById('root');
 ReactDOM.render(
     React.createElement('div', { className: 'game-container' },
         [
