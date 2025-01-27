@@ -1,14 +1,19 @@
 /*Body and container styles*/
-/*Edits made by Alina Palomino*/
 body {
     margin: 0;
     padding: 0;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-family: 'Press Start 2P', cursive;
     background-color: #95C0F7;
 }
 
-/*Enable flexbox, stack and center items vertically - AP*/
+/*Enable flexbox, stack and center items vertically*/
 .game-container {
+    overflow: hidden;
     flex-direction: column;
     justify-content: center;
     align-items: center; 
