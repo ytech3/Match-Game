@@ -11,11 +11,11 @@ const CONSTANTS = {
     },
     CARD_PAIRS: [
         { path: './Assets/bradley.jpg', description: 'Bradley player card' },
-        { path: './Assets/dj.jpg', description: 'DJ player card' },
+        //{ path: './Assets/dj.jpg', description: 'DJ player card' },
         { path: './Assets/djkitty.jpg', description: 'DJ Kitty mascot card' },
         { path: './Assets/littell.jpg', description: 'Littell player card' },
         { path: './Assets/palacios.jpg', description: 'Palacios player card' },
-        { path: './Assets/pepiot.jpg', description: 'Pepiot player card' },
+        //{ path: './Assets/pepiot.jpg', description: 'Pepiot player card' },
         { path: './Assets/raymond.jpg', description: 'Raymond player card' },
         { path: './Assets/baseball.jpg', description: 'Baseball card' }
     ],
