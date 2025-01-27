@@ -30,16 +30,6 @@ body {
     cursor: pointer;
 }
 
-.card:hover {
-    transform: scale(1.02);
-}
-
-.card:focus {
-    outline: 3px solid #4A90E2;
-    outline-offset: 2px;
-    transform: scale(1.02);
-}
-
 /*Card faces*/
 .card-inner {
     position: relative;
@@ -97,14 +87,16 @@ h1 {
     overflow: hidden;
 }
 
-.how-to-play-panel {
-    background-color: #FFFFFF;
+.how-to-play-panel,
+.game-over-panel {
+    background-color: #87CEEB;
     max-width: 800px;
     max-height: 600px;
     box-sizing: border-box;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
+    border: 8px solid #092C5C
 }
 
 .how-to-play-title {
@@ -115,29 +107,30 @@ h1 {
 .how-to-play-instructions {
     margin-bottom: 20px;
     line-height: 1.5;
-    text-align: left;
+    text-align: center;
 }
 
 .how-to-play-instructions ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .how-to-play-instructions li {
     margin-bottom: 10px;
+    font-size: 14px;
 }
 
 .how-to-play-agreement {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-    background-color: #8FBCE6;
     padding: 10px;
     border-radius: 5px;
 }
 
 .how-to-play-agreement input[type="checkbox"] {
-    margin-right: 10px;
+    margin-right: 50px;
 }
 
 .how-to-play-agreement label {
@@ -145,9 +138,11 @@ h1 {
 }
 
 .how-to-play-start-button {
+    margin-bottom: 20px;
     width: 100%;
     background-color: #092C5C;
-    color: #FFFFFF;
+    color: #F5D130;
+    font-size: 20px;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -160,12 +155,9 @@ h1 {
     cursor: not-allowed;
 }
 
-.how-to-play-start-button:not(.disabled):hover {
-    background-color: #4A90E2;
-}
-
 /* Link Boxes Section */
 .legal-links-container {
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -173,7 +165,7 @@ h1 {
     margin-bottom: 0 auto 15px;
     width: 95%;
     background-color: #092C5C;
-    padding: 15px;
+    padding: 10px;
     border-radius: 10px;
 }
 
@@ -184,14 +176,14 @@ h1 {
     border: 2px solid #F5D130;
     border-radius: 5px;
     padding: 5px 40px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 /* Hover State */
-.legal-link:hover {
+.legal-link:active {
     background-color: #F5D130;
     color: #092C5C;
 }
@@ -253,17 +245,6 @@ h1 {
     z-index: 1000;
 }
 
-/* Panel */
-.game-over-panel {
-    background-color: #FFFFFF;
-    max-width: 600px;
-    max-height: 600px;
-    box-sizing: border-box;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-}
-
 /* Title */
 .game-over-title {
     color: #092C5C;
@@ -296,8 +277,8 @@ h1 {
 }
 
 .game-over-leaderboard th {
-    background-color: #8FBCE6;
-    color: #092C5C;
+    background-color: #092C5C;
+    color: #F5D130;
     font-weight: bold;
     border: none;
 }

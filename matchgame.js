@@ -289,68 +289,94 @@ class MemoryGame extends React.Component {
     };
 
     renderHowToPlay = () => {
-    const { agreedToRules, playerGamertag } = this.state;
-
-    return React.createElement('div', {
-        role: 'dialog',
-        'aria-modal': true,
-        'aria-labelledby': 'howToPlayTitle',
-        className: 'how-to-play-overlay'
-    }, React.createElement('div', {
-        className: 'how-to-play-panel'
-    }, [
-        // Link boxes container
-        React.createElement('div', {
-            key: 'link-boxes',
-            className: 'legal-links-container'
+        const { agreedToRules, playerGamertag } = this.state;
+    
+        return React.createElement('div', {
+            role: 'dialog',
+            'aria-modal': true,
+            'aria-labelledby': 'howToPlayTitle',
+            className: 'how-to-play-overlay'
+        }, React.createElement('div', {
+            className: 'how-to-play-panel'
         }, [
-            React.createElement('button', {
-                key: 'support',
-                onClick: () => window.open('https://www.mlb.com/rays/official-information/contact'),
-                className: 'legal-link'
-            }, 'Support'),
-            React.createElement('button', {
-                key: 'tou',
-                onClick: () => window.open('https://www.mlb.com/official-information/terms-of-use'),
-                className: 'legal-link'
-            }, 'MLB TOU'),
-            React.createElement('button', {
-                key: 'privacy',
-                onClick: () => window.open('https://www.mlb.com/official-information/privacy-policy'),
-                className: 'legal-link'
-            }, 'MLB Privacy Policy')
-        ]),
-
-        // Title and Instructions
-        React.createElement('h2', {
-            key: 'title',
-            id: 'howToPlayTitle',
-            className: 'how-to-play-title'
-        }, 'HOW TO PLAY'),
-
-        React.createElement('div', {
-            key: 'instructions',
-            className: 'how-to-play-instructions'
-        }, [
-            React.createElement('p', {
-                key: 'gamertag'
-            }, `Your Gamertag: ${playerGamertag}`),
-            React.createElement('ul', {
-                key: 'rules-list'
+            // Title and Instructions
+            React.createElement('h2', {
+                key: 'title',
+                id: 'howToPlayTitle',
+                className: 'how-to-play-title'
+            }, 'HOW TO PLAY'),
+    
+            React.createElement('div', {
+                key: 'instructions',
+                className: 'how-to-play-instructions'
             }, [
-                React.createElement('li', { key: 'rule1' },
-                    '• Match pairs of Rays player cards to win!'
-                ),
-                React.createElement('li', { key: 'rule2' },
-                    '• Complete the game in as few moves as possible'
-                ),
-                React.createElement('li', { key: 'rule3' },
-                    '• Each pair of cards flipped counts as one move'
-                ),
-                React.createElement('li', { key: 'rule4' },
-                    '• Race against the clock to get the fastest time!'
-                )
+                
+                React.createElement('ul', {
+                    key: 'rules-list'
+                }, [
+                    React.createElement('li', { key: 'rule1' },
+                        'Tap a card to flip it over'
+                    ),
+                    React.createElement('li', { key: 'rule2' },
+                        'Find all matching pairs'
+                    ),
+                    React.createElement('li', { key: 'rule3' },
+                        'Race against the clock!'
+                    )
+                ])
+            ]),
+    
+            // Agreement checkbox
+            React.createElement('div', {
+                key: 'agreement',
+                className: 'how-to-play-agreement'
+            }, [
+                React.createElement('input', {
+                    key: 'checkbox',
+                    type: 'checkbox',
+                    id: 'rulesCheckbox',
+                    checked: agreedToRules,
+                    onChange: () => this.setState({ agreedToRules: !agreedToRules })
+                }),
+                React.createElement('label', {
+                    key: 'checkbox-label',
+                    htmlFor: 'rulesCheckbox'
+                }, 'I agree to the game rules and policies')
+            ]),
+    
+            // Start button
+            React.createElement('button', {
+                key: 'start-button',
+                onClick: () => {
+                    if (agreedToRules) {
+                        this.setState({ gamePhase: 'playing' });
+                    }
+                },
+                className: `how-to-play-start-button ${agreedToRules ? '' : 'disabled'}`
+            }, 'Start Game'),
+    
+            // Link boxes container (now below the start button)
+            React.createElement('div', {
+                key: 'link-boxes',
+                className: 'legal-links-container'
+            }, [
+                React.createElement('button', {
+                    key: 'support',
+                    onClick: () => window.open('https://www.mlb.com/rays/official-information/contact'),
+                    className: 'legal-link'
+                }, 'Support'),
+                React.createElement('button', {
+                    key: 'tou',
+                    onClick: () => window.open('https://www.mlb.com/official-information/terms-of-use'),
+                    className: 'legal-link'
+                }, 'MLB TOU'),
+                React.createElement('button', {
+                    key: 'privacy',
+                    onClick: () => window.open('https://www.mlb.com/official-information/privacy-policy'),
+                    className: 'legal-link'
+                }, 'MLB Privacy Policy')
             ])
+<<<<<<< Updated upstream
         ]),
 
         // Agreement checkbox
@@ -384,6 +410,10 @@ class MemoryGame extends React.Component {
         }, 'Start Game')
     ]));
 };
+=======
+        ]));
+    };
+>>>>>>> Stashed changes
     
 renderGameOver = () => {
     const { moves, leaderboard, playerGamertag, timer } = this.state;
