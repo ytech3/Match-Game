@@ -376,44 +376,9 @@ class MemoryGame extends React.Component {
                     className: 'legal-link'
                 }, 'MLB Privacy Policy')
             ])
-<<<<<<< Updated upstream
         ]),
-
-        // Agreement checkbox
-        React.createElement('div', {
-            key: 'agreement',
-            className: 'how-to-play-agreement'
-        }, [
-            React.createElement('input', {
-                key: 'checkbox',
-                type: 'checkbox',
-                id: 'rulesCheckbox',
-                checked: agreedToRules,
-                onChange: () => this.setState({ agreedToRules: !agreedToRules })
-            }),
-            React.createElement('label', {
-                key: 'checkbox-label',
-                htmlFor: 'rulesCheckbox'
-            }, 'I agree to the game rules and policies')
-        ]),
-
-        // Start button
-        React.createElement('button', {
-            key: 'start-button',
-            onClick: () => {
-                if (agreedToRules) {
-                    this.setState({ gamePhase: 'playing' });
-                    //this.announce('Game started');
-                }
-            },
-            className: `how-to-play-start-button ${agreedToRules ? '' : 'disabled'}`
-        }, 'Start Game')
-    ]));
+    );
 };
-=======
-        ]));
-    };
->>>>>>> Stashed changes
     
 renderGameOver = () => {
     const { moves, leaderboard, playerGamertag, timer } = this.state;
