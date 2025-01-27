@@ -357,26 +357,21 @@ class MemoryGame extends React.Component {
             }, 'Start Game'),
     
             // Link boxes container (now below the start button)
-            React.createElement('div', {
-                key: 'link-boxes',
-                className: 'legal-links-container'
-            }, [
-                React.createElement('button', {
-                    key: 'support',
-                    onClick: () => window.open('https://www.mlb.com/rays/official-information/contact'),
-                    className: 'legal-link'
-                }, 'Support'),
-                React.createElement('button', {
-                    key: 'tou',
-                    onClick: () => window.open('https://www.mlb.com/official-information/terms-of-use'),
-                    className: 'legal-link'
-                }, 'MLB TOU'),
-                React.createElement('button', {
-                    key: 'privacy',
-                    onClick: () => window.open('https://www.mlb.com/official-information/privacy-policy'),
-                    className: 'legal-link'
-                }, 'MLB Privacy Policy')
-            ])
+            React.createElement('button', {
+                key: 'support',
+                onClick: () => window.open('https://www.mlb.com/rays/official-information/contact'),
+                className: 'legal-link'
+            }, 'Support'),
+            React.createElement('button', {
+                key: 'tou',
+                onClick: () => window.open('https://www.mlb.com/official-information/terms-of-use'),
+                className: 'legal-link'
+            }, 'MLB TOU'),
+            React.createElement('button', {
+                key: 'privacy',
+                onClick: () => window.open('https://www.mlb.com/official-information/privacy-policy'),
+                className: 'legal-link'
+            }, 'MLB Privacy Policy')
         ]),
     );
 };
@@ -442,7 +437,7 @@ renderGameOver = () => {
         //Reusable legal links component
         const renderLegalLinks = () => React.createElement('div', {
             key: 'legal-links',
-            className: 'legal-links-container'
+            className: 'legal-links-footer'
         }, [
             React.createElement('button', {
                 key: 'support',
@@ -504,22 +499,12 @@ renderGameOver = () => {
                     React.createElement('div', {
                         key: 'moves',
                         'aria-label': `Moves:${moves}`,
-                        style: {
-                            fontSize: '18px',
-                            fontWeight: 'bold',
-                            color: CONSTANTS.COLORS.navy,
-                            textAlign: 'center'
-                        }
+                        className: 'game-stats'
                     }, `Moves: ${moves}`),
                     React.createElement('div', {
                         key: 'timer',
                         'aria-label': `Time: ${this.formatTime(timer)}`,
-                        style: {
-                            fontSize: '18px',
-                            fontWeight: 'bold',
-                            color: CONSTANTS.COLORS.navy,
-                            textAlign: 'center'
-                        }
+                        className: 'game-stats'
                     }, `Time: ${this.formatTime(timer)}`)
                 ]),
                 

@@ -9,6 +9,7 @@ body {
     align-items: center;
     font-family: 'Press Start 2P', cursive;
     background-color: #95C0F7;
+    flex-direction: column;
 }
 
 /*Enable flexbox, stack and center items vertically*/
@@ -22,7 +23,6 @@ body {
     padding: 30px;
     box-sizing: border-box;
 }
-
 
 /*Card styles*/
 .card {
@@ -70,13 +70,20 @@ body {
 }
 
 /*Responsive font sizes*/
-/*Ensure text remains center -AP*/
 h1 {
     text-align: center;
     color: #092C5C;
-    font-size: 40px;
-    margin-bottom: 15px;
+    font-size: 38px;
+    margin-bottom: 10px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.game-stats {
+    font-size: 20px;
+    font-weight: bold;
+    color: #092C5C;
+    text-align: center;
+    margin: 0 10px 0; /* Optional: Adds some vertical spacing between stats */
 }
 
 /* How-to-Play Panel Styles */
@@ -162,20 +169,22 @@ h1 {
 }
 
 /* Link Boxes Section */
-.legal-links-container {
-    margin-top: 10px;
+.legal-links-footer {
+    position: fixed; /* Sticks the footer to the bottom */
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Stretches across the entire screen */
+    background-color: #092C5C; /* Navy background */
+    padding: 15px 0;
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Centers the links horizontally */
     align-items: center;
-    gap: 10px;
-    margin-bottom: 0 auto 15px;
-    width: 95%;
-    background-color: #092C5C;
-    padding: 10px;
-    border-radius: 10px;
+    gap: 15px; /* Space between the buttons */
+    z-index: 1000; /* Ensures it stays above other elements */
+    border-top: 3px solid #F5D130; /* Optional: Adds a yellow border at the top */
 }
 
-/* Link Buttons */
+/*Button Styles*/
 .legal-link {
     background-color: #092C5C;
     color: #F5D130;
@@ -188,15 +197,13 @@ h1 {
     transition: all 0.3s ease;
 }
 
-/* Hover State */
 .legal-link:active {
     background-color: #F5D130;
     color: #092C5C;
 }
 
-/* Reset Button Styles */
-.reset-button:hover,
-.game-over-play-again:hover {
+.reset-button:active,
+.game-over-play-again:active {
     background-color: #092C5C;
     color: #F5D130;
 }
@@ -252,7 +259,6 @@ h1 {
     z-index: 1000;
 }
 
-/* Title */
 .game-over-title {
     color: #092C5C;
     margin-bottom: 20px;
@@ -260,7 +266,6 @@ h1 {
     text-align: center;
 }
 
-/* Gamertag and Score */
 .game-over-gamertag,
 .game-over-score {
     font-size: 20px;
@@ -268,7 +273,6 @@ h1 {
     color: #092C5C;
 }
 
-/* Leaderboard Table */
 .game-over-leaderboard {
     width: 90%;
     max-width: 90%;
@@ -415,7 +419,7 @@ h1 {
 /* Large Screens */
 @media (min-width: 1025px) {
     .memory-card-grid {
-        width: 75%;
+        width: 90%;
         gap: 10px;
     }
 
