@@ -55,7 +55,7 @@ const adjustGridScaling = () => {
     if (!grid || cards.length === 0) return;
 
     const containerWidth = grid.offsetWidth;
-    const cardSize = Math.max(60, Math.floor(containerWidth / 4) - 10);
+    const cardSize = Math.max(60, Math.floor(containerWidth / 3) - 10);
 
     cards.forEach(card => {
         card.style.width = `${cardSize}px`;
@@ -212,6 +212,7 @@ class MemoryGame extends React.Component {
         }
 
         const shuffledCards = [...CONSTANTS.CARD_PAIRS, ...CONSTANTS.CARD_PAIRS]
+            .slice(0,12)
             .sort(() => Math.random() - 0.5)
             .map((card, index) => ({
                 id: index,

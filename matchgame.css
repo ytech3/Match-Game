@@ -21,6 +21,7 @@ body {
 
 /*Card styles*/
 .card {
+    width: 100%;
     aspect-ratio: 1 / 1;
     perspective: 1000px;
     transition: transform 0.2s;
@@ -212,7 +213,8 @@ h1 {
 
 .memory-card-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr); 
     gap: 10px;
     width: 100%;
     margin: 0 auto;
@@ -296,7 +298,7 @@ h1 {
 /* Small Screens */
 @media (max-width: 600px) {
     .game-container {
-        padding: 10px;
+        padding: 5px;
     }
 
     h1 {
