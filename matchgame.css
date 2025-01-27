@@ -1,14 +1,20 @@
 /*Body and container styles*/
-/*Edits made by Alina Palomino*/
 body {
     margin: 0;
     padding: 0;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-family: 'Press Start 2P', cursive;
     background-color: #95C0F7;
+    flex-direction: column;
 }
 
-/*Enable flexbox, stack and center items vertically - AP*/
+/*Enable flexbox, stack and center items vertically*/
 .game-container {
+    overflow: hidden;
     flex-direction: column;
     justify-content: center;
     align-items: center; 
@@ -18,9 +24,9 @@ body {
     box-sizing: border-box;
 }
 
-
 /*Card styles*/
 .card {
+    width: 100%;
     aspect-ratio: 1 / 1;
     perspective: 1000px;
     transition: transform 0.2s;
@@ -63,15 +69,6 @@ body {
     background-color: #092C5C;
 }
 
-/*Responsive font sizes*/
-/*Ensure text remains center -AP*/
-h1 {
-    text-align: center;
-    color: #092C5C;
-    font-size: 40px;
-    margin-bottom: 15px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
 
 /* How-to-Play Panel Styles */
 .how-to-play-overlay {
@@ -90,7 +87,7 @@ h1 {
 .how-to-play-panel,
 .game-over-panel {
     background-color: #87CEEB;
-    max-width: 800px;
+    max-width: 600px;
     max-height: 600px;
     box-sizing: border-box;
     padding: 20px;
@@ -105,7 +102,7 @@ h1 {
 }
 
 .how-to-play-instructions {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     line-height: 1.5;
     text-align: center;
 }
@@ -124,22 +121,21 @@ h1 {
 .how-to-play-agreement {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     padding: 10px;
-    border-radius: 5px;
 }
 
 .how-to-play-agreement input[type="checkbox"] {
-    margin-right: 50px;
+    margin-right: 25px;
 }
 
 .how-to-play-agreement label {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .how-to-play-start-button {
-    margin-bottom: 20px;
-    width: 100%;
+    margin-bottom: 0;
+    width: 50%;
     background-color: #092C5C;
     color: #F5D130;
     font-size: 20px;
@@ -155,42 +151,93 @@ h1 {
     cursor: not-allowed;
 }
 
-/* Link Boxes Section */
-.legal-links-container {
-    margin-top: 10px;
+/* In game styles */
+
+.game-header {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 0 auto 15px;
-    width: 95%;
-    background-color: #092C5C;
-    padding: 10px;
-    border-radius: 10px;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
-/* Link Buttons */
+.game-header > div {
+    text-align: center;
+    font-size: calc(16px + 1vw);
+}
+
+
+h1 {
+    text-align: center;
+    color: #092C5C;
+    font-size: 38px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.game-stats {
+    font-size: 20px;
+    font-weight: bold;
+    color: #092C5C;
+    text-align: center;
+    margin: 0 10px 0;
+}
+
+.stats-group {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Link Boxes Section */
+.legal-links-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #092C5C;
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    z-index: 1000;
+    border-top: 3px solid #F5D130;
+}
+
+/*Button Styles*/
 .legal-link {
     background-color: #092C5C;
     color: #F5D130;
     border: 2px solid #F5D130;
     border-radius: 5px;
-    padding: 5px 40px;
+    display: inline-block;
+    margin: 0 10px;
+    padding: 5px 20px;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-/* Hover State */
+.legal-links-container {
+    text-align: center;
+}
+
 .legal-link:active {
     background-color: #F5D130;
     color: #092C5C;
 }
 
-/* Reset Button Styles */
-.reset-button:hover,
-.game-over-play-again:hover {
+.reset-button-container{
+    display: flex;
+    justify-content: center;
+    margin: 15px;
+}
+
+.reset-button:active,
+.game-over-play-again:active {
     background-color: #092C5C;
     color: #F5D130;
 }
@@ -212,23 +259,13 @@ h1 {
 
 .memory-card-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr); 
     gap: 10px;
     width: 100%;
     margin: 0 auto;
-}
-
-.game-header {
-    display: flex;
+    margin: 0 auto;
     justify-content: center;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.game-header > div {
-    text-align: center;
-    font-size: calc(16px + 1vw);
 }
 
 /*Game Over Panel Styles*/
@@ -245,7 +282,6 @@ h1 {
     z-index: 1000;
 }
 
-/* Title */
 .game-over-title {
     color: #092C5C;
     margin-bottom: 20px;
@@ -253,7 +289,6 @@ h1 {
     text-align: center;
 }
 
-/* Gamertag and Score */
 .game-over-gamertag,
 .game-over-score {
     font-size: 20px;
@@ -261,7 +296,6 @@ h1 {
     color: #092C5C;
 }
 
-/* Leaderboard Table */
 .game-over-leaderboard {
     width: 90%;
     max-width: 90%;
@@ -296,7 +330,7 @@ h1 {
 /* Small Screens */
 @media (max-width: 600px) {
     .game-container {
-        padding: 10px;
+        padding: 5px;
     }
 
     h1 {
@@ -408,7 +442,7 @@ h1 {
 /* Large Screens */
 @media (min-width: 1025px) {
     .memory-card-grid {
-        width: 75%;
+        width: 90%;
         gap: 10px;
     }
 

@@ -11,11 +11,11 @@ const CONSTANTS = {
     },
     CARD_PAIRS: [
         { path: './Assets/bradley.jpg', description: 'Bradley player card' },
-        { path: './Assets/dj.jpg', description: 'DJ player card' },
+        //{ path: './Assets/dj.jpg', description: 'DJ player card' },
         { path: './Assets/djkitty.jpg', description: 'DJ Kitty mascot card' },
         { path: './Assets/littell.jpg', description: 'Littell player card' },
         { path: './Assets/palacios.jpg', description: 'Palacios player card' },
-        { path: './Assets/pepiot.jpg', description: 'Pepiot player card' },
+        //{ path: './Assets/pepiot.jpg', description: 'Pepiot player card' },
         { path: './Assets/raymond.jpg', description: 'Raymond player card' },
         { path: './Assets/baseball.jpg', description: 'Baseball card' }
     ],
@@ -55,7 +55,7 @@ const adjustGridScaling = () => {
     if (!grid || cards.length === 0) return;
 
     const containerWidth = grid.offsetWidth;
-    const cardSize = Math.max(60, Math.floor(containerWidth / 4) - 10);
+    const cardSize = Math.max(60, Math.floor(containerWidth / 3) - 10);
 
     cards.forEach(card => {
         card.style.width = `${cardSize}px`;
@@ -212,6 +212,7 @@ class MemoryGame extends React.Component {
         }
 
         const shuffledCards = [...CONSTANTS.CARD_PAIRS, ...CONSTANTS.CARD_PAIRS]
+            .slice(0,12)
             .sort(() => Math.random() - 0.5)
             .map((card, index) => ({
                 id: index,
@@ -376,44 +377,9 @@ class MemoryGame extends React.Component {
                     className: 'legal-link'
                 }, 'MLB Privacy Policy')
             ])
-<<<<<<< Updated upstream
         ]),
-
-        // Agreement checkbox
-        React.createElement('div', {
-            key: 'agreement',
-            className: 'how-to-play-agreement'
-        }, [
-            React.createElement('input', {
-                key: 'checkbox',
-                type: 'checkbox',
-                id: 'rulesCheckbox',
-                checked: agreedToRules,
-                onChange: () => this.setState({ agreedToRules: !agreedToRules })
-            }),
-            React.createElement('label', {
-                key: 'checkbox-label',
-                htmlFor: 'rulesCheckbox'
-            }, 'I agree to the game rules and policies')
-        ]),
-
-        // Start button
-        React.createElement('button', {
-            key: 'start-button',
-            onClick: () => {
-                if (agreedToRules) {
-                    this.setState({ gamePhase: 'playing' });
-                    //this.announce('Game started');
-                }
-            },
-            className: `how-to-play-start-button ${agreedToRules ? '' : 'disabled'}`
-        }, 'Start Game')
-    ]));
+    );
 };
-=======
-        ]));
-    };
->>>>>>> Stashed changes
     
 renderGameOver = () => {
     const { moves, leaderboard, playerGamertag, timer } = this.state;
@@ -476,7 +442,7 @@ renderGameOver = () => {
         //Reusable legal links component
         const renderLegalLinks = () => React.createElement('div', {
             key: 'legal-links',
-            className: 'legal-links-container'
+            className: 'legal-links-footer'
         }, [
             React.createElement('button', {
                 key: 'support',
@@ -516,44 +482,23 @@ renderGameOver = () => {
             
             React.createElement('div', {
                 key: 'game-header',
-                style: {
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginBottom: '20px',
-                    gap: '10px',
-                    flexWrap: 'wrap'
-                }
+                className: 'game-header'
             }, [
                 React.createElement('div', {
                     key: 'stats',
                     role: 'group',
                     'aria-label': 'Game Statistics',
-                    style: {
-                        display: 'flex',
-                        gap: '20px',
-                        alignItems: 'center'
-                    }
+                    className: 'stats-group'
                 }, [
                     React.createElement('div', {
                         key: 'moves',
                         'aria-label': `Moves:${moves}`,
-                        style: {
-                            fontSize: '18px',
-                            fontWeight: 'bold',
-                            color: CONSTANTS.COLORS.navy,
-                            textAlign: 'center'
-                        }
+                        className: 'game-stats'
                     }, `Moves: ${moves}`),
                     React.createElement('div', {
                         key: 'timer',
                         'aria-label': `Time: ${this.formatTime(timer)}`,
-                        style: {
-                            fontSize: '18px',
-                            fontWeight: 'bold',
-                            color: CONSTANTS.COLORS.navy,
-                            textAlign: 'center'
-                        }
+                        className: 'game-stats'
                     }, `Time: ${this.formatTime(timer)}`)
                 ]),
                 
@@ -614,11 +559,7 @@ renderGameOver = () => {
                 )),
                 React.createElement('div', {
                     key: 'reset-button-container',
-                    style: {
-                        display: 'flex',
-                        justifyContent: 'center',
-                        margin: '15px 0'
-                    }
+                    className: 'reset-button-container'
                 }, React.createElement('button', {
                     key: 'reset',
                     onClick: this.initializeGame,
@@ -635,7 +576,6 @@ renderGameOver = () => {
     }
     
     //Initialize the app
-    //Styling centralized in css, inline styles removed -AP
     const container = document.getElementById('root');
 ReactDOM.render(
     React.createElement('div', { className: 'game-container' },
