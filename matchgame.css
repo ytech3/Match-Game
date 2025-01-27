@@ -69,22 +69,6 @@ body {
     background-color: #092C5C;
 }
 
-/*Responsive font sizes*/
-h1 {
-    text-align: center;
-    color: #092C5C;
-    font-size: 38px;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.game-stats {
-    font-size: 20px;
-    font-weight: bold;
-    color: #092C5C;
-    text-align: center;
-    margin: 0 10px 0; /* Optional: Adds some vertical spacing between stats */
-}
 
 /* How-to-Play Panel Styles */
 .how-to-play-overlay {
@@ -103,7 +87,7 @@ h1 {
 .how-to-play-panel,
 .game-over-panel {
     background-color: #87CEEB;
-    max-width: 800px;
+    max-width: 600px;
     max-height: 600px;
     box-sizing: border-box;
     padding: 20px;
@@ -118,7 +102,7 @@ h1 {
 }
 
 .how-to-play-instructions {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     line-height: 1.5;
     text-align: center;
 }
@@ -137,22 +121,21 @@ h1 {
 .how-to-play-agreement {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     padding: 10px;
-    border-radius: 5px;
 }
 
 .how-to-play-agreement input[type="checkbox"] {
-    margin-right: 50px;
+    margin-right: 25px;
 }
 
 .how-to-play-agreement label {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .how-to-play-start-button {
-    margin-bottom: 20px;
-    width: 100%;
+    margin-bottom: 0;
+    width: 50%;
     background-color: #092C5C;
     color: #F5D130;
     font-size: 20px;
@@ -168,20 +151,59 @@ h1 {
     cursor: not-allowed;
 }
 
+/* In game styles */
+
+.game-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.game-header > div {
+    text-align: center;
+    font-size: calc(16px + 1vw);
+}
+
+
+h1 {
+    text-align: center;
+    color: #092C5C;
+    font-size: 38px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.game-stats {
+    font-size: 20px;
+    font-weight: bold;
+    color: #092C5C;
+    text-align: center;
+    margin: 0 10px 0;
+}
+
+.stats-group {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
 /* Link Boxes Section */
 .legal-links-footer {
-    position: fixed; /* Sticks the footer to the bottom */
+    position: fixed;
     bottom: 0;
     left: 0;
-    width: 100%; /* Stretches across the entire screen */
-    background-color: #092C5C; /* Navy background */
+    width: 100%;
+    background-color: #092C5C;
     padding: 15px 0;
     display: flex;
-    justify-content: center; /* Centers the links horizontally */
+    justify-content: center;
     align-items: center;
-    gap: 15px; /* Space between the buttons */
-    z-index: 1000; /* Ensures it stays above other elements */
-    border-top: 3px solid #F5D130; /* Optional: Adds a yellow border at the top */
+    gap: 15px;
+    z-index: 1000;
+    border-top: 3px solid #F5D130;
 }
 
 /*Button Styles*/
@@ -190,16 +212,28 @@ h1 {
     color: #F5D130;
     border: 2px solid #F5D130;
     border-radius: 5px;
-    padding: 5px 40px;
+    display: inline-block;
+    margin: 0 10px;
+    padding: 5px 20px;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
+.legal-links-container {
+    text-align: center;
+}
+
 .legal-link:active {
     background-color: #F5D130;
     color: #092C5C;
+}
+
+.reset-button-container{
+    display: flex;
+    justify-content: center;
+    margin: 15px;
 }
 
 .reset-button:active,
@@ -230,19 +264,8 @@ h1 {
     gap: 10px;
     width: 100%;
     margin: 0 auto;
-}
-
-.game-header {
-    display: flex;
+    margin: 0 auto;
     justify-content: center;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.game-header > div {
-    text-align: center;
-    font-size: calc(16px + 1vw);
 }
 
 /*Game Over Panel Styles*/

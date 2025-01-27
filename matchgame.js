@@ -357,21 +357,26 @@ class MemoryGame extends React.Component {
             }, 'Start Game'),
     
             // Link boxes container (now below the start button)
-            React.createElement('button', {
-                key: 'support',
-                onClick: () => window.open('https://www.mlb.com/rays/official-information/contact'),
-                className: 'legal-link'
-            }, 'Support'),
-            React.createElement('button', {
-                key: 'tou',
-                onClick: () => window.open('https://www.mlb.com/official-information/terms-of-use'),
-                className: 'legal-link'
-            }, 'MLB TOU'),
-            React.createElement('button', {
-                key: 'privacy',
-                onClick: () => window.open('https://www.mlb.com/official-information/privacy-policy'),
-                className: 'legal-link'
-            }, 'MLB Privacy Policy')
+            React.createElement('div', {
+                key: 'link-boxes',
+                className: 'legal-links-container'
+            }, [
+                React.createElement('button', {
+                    key: 'support',
+                    onClick: () => window.open('https://www.mlb.com/rays/official-information/contact'),
+                    className: 'legal-link'
+                }, 'Support'),
+                React.createElement('button', {
+                    key: 'tou',
+                    onClick: () => window.open('https://www.mlb.com/official-information/terms-of-use'),
+                    className: 'legal-link'
+                }, 'MLB TOU'),
+                React.createElement('button', {
+                    key: 'privacy',
+                    onClick: () => window.open('https://www.mlb.com/official-information/privacy-policy'),
+                    className: 'legal-link'
+                }, 'MLB Privacy Policy')
+            ])
         ]),
     );
 };
@@ -477,24 +482,13 @@ renderGameOver = () => {
             
             React.createElement('div', {
                 key: 'game-header',
-                style: {
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginBottom: '20px',
-                    gap: '10px',
-                    flexWrap: 'wrap'
-                }
+                className: 'game-header'
             }, [
                 React.createElement('div', {
                     key: 'stats',
                     role: 'group',
                     'aria-label': 'Game Statistics',
-                    style: {
-                        display: 'flex',
-                        gap: '20px',
-                        alignItems: 'center'
-                    }
+                    className: 'stats-group'
                 }, [
                     React.createElement('div', {
                         key: 'moves',
@@ -565,11 +559,7 @@ renderGameOver = () => {
                 )),
                 React.createElement('div', {
                     key: 'reset-button-container',
-                    style: {
-                        display: 'flex',
-                        justifyContent: 'center',
-                        margin: '15px 0'
-                    }
+                    className: 'reset-button-container'
                 }, React.createElement('button', {
                     key: 'reset',
                     onClick: this.initializeGame,
@@ -586,7 +576,6 @@ renderGameOver = () => {
     }
     
     //Initialize the app
-    //Styling centralized in css, inline styles removed -AP
     const container = document.getElementById('root');
 ReactDOM.render(
     React.createElement('div', { className: 'game-container' },
