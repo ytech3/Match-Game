@@ -153,7 +153,6 @@ body {
 }
 
 /* In game styles */
-
 .game-header {
     display: flex;
     justify-content: center;
@@ -198,7 +197,7 @@ h1 {
     left: 0;
     width: 100%;
     background-color: #092C5C;
-    padding: 20px 0;
+    padding: 15px 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -356,10 +355,9 @@ h1 {
     }
 
     .legal-link {
-        gap: 5px;
         padding: 5px 10px;
         font-size: 12px;
-        margin: 10px 5px;
+        margin: 10px 2px;
     }
 
     .legal-links-footer {
