@@ -362,6 +362,11 @@ h1 {
         margin: 10px 5px;
     }
 
+    .legal-links-footer {
+        padding: 10px 0;
+        gap: 5px;
+    }
+
     .reset-button,
     .how-to-play-start-button,
     .game-over-play-again {
