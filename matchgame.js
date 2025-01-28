@@ -55,7 +55,7 @@ const adjustGridScaling = () => {
     if (!grid || cards.length === 0) return;
 
     const containerWidth = grid.offsetWidth;
-    const cardSize = Math.max(60, Math.floor(containerWidth / 3) - 10);
+    const cardSize = Math.max(100, Math.floor(containerWidth / 3) - 10);
 
     cards.forEach(card => {
         card.style.width = `${cardSize}px`;
