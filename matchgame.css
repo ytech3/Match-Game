@@ -334,7 +334,7 @@ h1 {
     }
 
     h1 {
-        font-size: 28px;
+        font-size: 24px;
     }
 
     .how-to-play-panel,
@@ -345,9 +345,21 @@ h1 {
         padding: 20px;
     }
 
+    .how-to-play-instructions li{
+        font-size: 11px;
+    }
+
     .memory-card-grid {
         gap: 5px;
         width: 100%;
+    }
+
+    .how-to-play-agreement{
+        padding: 5px;
+    }
+
+    .how-to-play-agreement label {
+        font-size: 10px;
     }
 
     .legal-links-container {
@@ -360,12 +372,19 @@ h1 {
         gap: 5px;
         padding: 5px 10px;
         font-size: 12px;
+        margin: 0 5px;
     }
 
     .reset-button,
+    .how-to-play-start-button,
     .game-over-play-again {
-        padding: 7px 15px;
-        font-size: 12px;
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+
+    .game-stats {
+        font-size: 14px;
+        margin: 0;
     }
 
     .game-over-leaderboard th,
