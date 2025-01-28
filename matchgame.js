@@ -77,7 +77,12 @@ const adjustGridScaling = () => {
 class LeaderboardManager {
     constructor() {
         this.maxEntries = 5;
+        this.leaderboardKey = 'memorayMatchLeaderboard';
         this.loadFromStorage();
+
+        if (this.leaderboard.length < this.maxEntries) {
+            this.generateRandomEntries();
+        }
     }
 
     loadFromStorage() {
@@ -104,6 +109,35 @@ class LeaderboardManager {
         return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
     };
 
+    //Generates random leaderboard entries
+    generateRandomEntries() {
+        const adjectives = ['Slugging', 'Speedy', 'Golden', 'Swift', 'Iron'];
+        const nouns = ['Bat', 'Glove', 'Slider', 'Ace', 'Star'];
+
+        const getRandomUsername = () => {
+            const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+            const noun = nouns[Math.floor(Math.random() * nouns.length)];
+            const number = Math.floor(Math.random() * 100);
+            return `${adjective}${noun}${number}`;
+        };
+
+        const getRandomMoves = () => Math.floor(Math.random() * 20) + 5;
+        const getRandomTime = () => Math.floor(Math.random() * 300) + 30;
+
+        for (let i = 0; i < 5; i++) {
+            const randomEntry = {
+                playerName: getRandomUsername(),
+                moves: getRandomMoves(),
+                timeInSeconds: getRandomTime(),
+                formattedTime: this.formatTime(getRandomTime()),
+                date: new Date().toISOString()
+            };
+            console.log('Generated random entry:', randomEntry);
+            this.leaderboard.push(randomEntry);
+        }
+        this.saveToStorage();
+    }
+
     addScore(timeInSeconds, moves, playerName) {
         const newEntry = {
             timeInSeconds,
@@ -120,8 +154,8 @@ class LeaderboardManager {
             }
             return a.timeInSeconds - b.timeInSeconds;
         });
+
         this.leaderboard = this.leaderboard.slice(0, this.maxEntries);
-        
         this.saveToStorage();
     }
 
