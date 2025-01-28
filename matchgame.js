@@ -432,7 +432,11 @@ renderGameOver = () => {
             React.createElement('tbody', { key: 'tbody' }, leaderboard.getTopScores().map((entry, index) =>
                 React.createElement('tr', {
                     key: `row-${index}`,
-                    className: entry.playerName === playerGamertag ? 'highlight' : ''
+                    className: entry.playerName === playerGamertag && 
+                                entry.formattedTime === this.formatTime(timer) &&
+                                entry.moves === moves
+                                ? 'highlight'
+                                : ''
                 }, [
                     React.createElement('td', { key: 'player' }, entry.playerName),
                     React.createElement('td', { key: 'time' }, entry.formattedTime),
