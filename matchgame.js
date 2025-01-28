@@ -24,6 +24,11 @@ const CONSTANTS = {
 
 // Baseball-themed gamertag generator
 const generateBaseballGamertag = () => {
+    const savedGamertag = localStorage.getItem('baseballGamertag');
+    if (savedGamertag) {
+        return savedGamertag;
+    }
+
     const adjectives = [
         'Slugging', 'Speedy', 'Mighty', 'Golden', 
         'Iron', 'Flying', 'Swift', 'Crafty', 
@@ -41,8 +46,12 @@ const generateBaseballGamertag = () => {
     const numbers = Math.floor(Math.random() * 100);
     const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
     const noun = nouns[Math.floor(Math.random() * nouns.length)];
-    
-    return `${adjective}${noun}${numbers}`;
+
+    const newGamertag = `${adjective}${noun}${numbers}`;
+
+    localStorage.setItem('baseballGamertag', newGamertag);
+
+    return newGamertag;
 };
 
 //Function to adjust the grid's scaling dynamically
@@ -207,8 +216,14 @@ class MemoryGame extends React.Component {
     };
 
     initializeGame = () => {
-        if (!this.state.playerGamertag) {
-            this.setState({ playerGamertag: generateBaseballGamertag() });
+        const savedGamertag = localStorage.getItem('baseballGamertag');
+
+        //Load saved gamertag or generate a new one
+        if (!savedGamertag) {
+            const newGamertag = generateBaseballGamertag();
+            this.setState({ playerGamertag: newGamertag });
+        } else {
+            this.setState({ playerGamertag: savedGamertag });
         }
 
         const shuffledCards = [...CONSTANTS.CARD_PAIRS, ...CONSTANTS.CARD_PAIRS]

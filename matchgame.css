@@ -71,7 +71,8 @@ body {
 
 
 /* How-to-Play Panel Styles */
-.how-to-play-overlay {
+.how-to-play-overlay,
+.game-over-overlay {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -197,7 +198,7 @@ h1 {
     left: 0;
     width: 100%;
     background-color: #092C5C;
-    padding: 15px 0;
+    padding: 20px 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -268,20 +269,6 @@ h1 {
     justify-content: center;
 }
 
-/*Game Over Panel Styles*/
-.game-over-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
 .game-over-title {
     color: #092C5C;
     margin-bottom: 20px;
@@ -300,7 +287,7 @@ h1 {
     width: 90%;
     max-width: 90%;
     border-collapse: collapse;
-    margin: 0 auto 20px auto;;
+    margin: 0 auto 20px auto;
 }
 
 .game-over-leaderboard th,
@@ -339,10 +326,10 @@ h1 {
 
     .how-to-play-panel,
     .game-over-panel{
-        max-width: 90%;
+        max-width: 95%;
         max-height: 90%;
         font-size: 14px;
-        padding: 20px;
+        padding: 10px;
     }
 
     .how-to-play-instructions li{
@@ -363,16 +350,16 @@ h1 {
     }
 
     .legal-links-container {
-        width: 95%;
-        gap: 10px;
-        padding: 10px;
+        width: 100%;
+        gap: 5px;
+        padding: 5px;
     }
 
     .legal-link {
         gap: 5px;
         padding: 5px 10px;
         font-size: 12px;
-        margin: 0 5px;
+        margin: 10px 5px;
     }
 
     .reset-button,
@@ -387,14 +374,18 @@ h1 {
         margin: 0;
     }
 
+    .game-over-leaderboard{
+        max-width: 95%;
+    }
+
     .game-over-leaderboard th,
     .game-over-leaderboard td {
-        font-size: 12px;
-        padding: 5px;
+        font-size: 10px;
+        padding: 8px;
     }
 
     .game-over-title {
-        font-size: 16px;
+        font-size: 18px;
         margin-bottom: 5px;
     }
     
@@ -407,42 +398,76 @@ h1 {
 
 /* Medium Screens */
 @media (min-width: 601px) and (max-width: 1024px) {
+    .game-container {
+        padding: 10px;
+    }
+
     h1 {
-        font-size: 34px;
-    }
-
-    .memory-card-grid {
-        width: 100%;
-        gap: 7px;
-    }
-
-    .legal-links-container {
-        width: 95%;
-        gap: 20px;
-        padding: 15px;
+        font-size: 38px;
     }
 
     .how-to-play-panel,
-    .game-over-panel {
-        max-width: 90%;
-        max-height: 90%;
+    .game-over-panel{
+        max-width: 95%;
+        max-height: 95%;
+        font-size: 20px;
+        padding: 15px;
+    }
+
+    .how-to-play-instructions li{
+        font-size: 16px;
+    }
+
+    .memory-card-grid {
+        gap: 10px;
+        width: 100%;
+    }
+
+    .how-to-play-agreement{
+        padding: 5px;
+    }
+
+    .how-to-play-agreement label {
+        font-size: 14px;
+    }
+
+    .legal-links-container {
+        width: 100%;
+        gap: 10px;
+        padding: 5px;
     }
 
     .legal-link {
-        gap: 20px;
-        padding:  10px 25px;
+        gap: 10px;
+        padding: 10px 15px;
         font-size: 16px;
+        margin: 10px 5px;
+    }
+
+    .legal-links-footer {
+        padding: 15px 0;
+        gap: 20px;
     }
 
     .reset-button,
+    .how-to-play-start-button,
     .game-over-play-again {
-        padding: 10px 25px;
+        padding: 15px 20px;
         font-size: 16px;
+    }
+
+    .game-stats {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .game-over-leaderboard{
+        max-width: 95%;
     }
 
     .game-over-leaderboard th,
     .game-over-leaderboard td {
-        font-size: 16px;
+        font-size: 14px;
         padding: 10px;
     }
 
