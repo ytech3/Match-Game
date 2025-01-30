@@ -1,9 +1,7 @@
 /*Body and container styles*/
 body {
-    margin: 0;
     padding: 0;
     width: 100%;
-    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,14 +12,17 @@ body {
 
 /*Enable flexbox, stack and center items vertically*/
 .game-container {
-    overflow: hidden;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center; 
     width: 100%;
-    margin: 0 auto;
     padding: 30px;
     box-sizing: border-box;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /*Card styles*/
@@ -77,12 +78,12 @@ body {
     justify-content: center;
     align-items: center;
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
-    height: 100%;
+    height: 150%;
     background-color: rgba(0, 0, 0, 0.8);
     overflow: hidden;
+    transform: translateY(-30%);
 }
 
 .how-to-play-panel,
@@ -262,10 +263,9 @@ h1 {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(4, 1fr); 
     gap: 10px;
+    justify-content: center;
     width: 100%;
     margin: 0 auto;
-    margin: 0 auto;
-    justify-content: center;
 }
 
 .game-over-title {
@@ -315,12 +315,14 @@ h1 {
 
 /* Small Screens */
 @media (max-width: 600px) {
+
     .game-container {
         padding: 5px;
     }
 
     h1 {
         font-size: 24px;
+        margin-bottom: 10px;
     }
 
     .how-to-play-panel,
@@ -338,6 +340,7 @@ h1 {
     .memory-card-grid {
         gap: 5px;
         width: 100%;
+        margin-bottom: 15px;
     }
 
     .how-to-play-agreement{
@@ -374,7 +377,7 @@ h1 {
 
     .game-stats {
         font-size: 14px;
-        margin: 0;
+        margin-bottom: 10px;
     }
 
     .game-over-leaderboard{
@@ -401,6 +404,7 @@ h1 {
 
 /* Medium Screens */
 @media (min-width: 601px) and (max-width: 1024px) {
+
     .game-container {
         padding: 10px;
     }
@@ -456,7 +460,7 @@ h1 {
     .how-to-play-start-button,
     .game-over-play-again {
         padding: 15px 20px;
-        font-size: 16px;
+        font-size: 20px;
     }
 
     .game-stats {
@@ -489,7 +493,7 @@ h1 {
 /* Large Screens */
 @media (min-width: 1025px) {
     .memory-card-grid {
-        width: 90%;
+        width: 100%;
         gap: 10px;
     }
 
