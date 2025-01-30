@@ -1,5 +1,9 @@
-// Edits made by Alina Palomino
-// Game constants
+/* Match Game Script
+Handles the core mechanics of the memory match game, including card flipping, 
+game state management, leaderboard tracking, and scaling adjustments. 
+
+It is recommended to seperate this one mega script into smaller managable scripts if this project continues to grow.
+*/
 const CONSTANTS = {
     COLORS: {
         navy: '#092C5C',
@@ -22,7 +26,7 @@ const CONSTANTS = {
     CARD_BACK: { path: './Assets/card.png', description: 'Card back' }
 };
 
-// Baseball-themed gamertag generator
+//Generates unique gamertag and saves to local storage
 const generateBaseballGamertag = () => {
     const savedGamertag = localStorage.getItem('baseballGamertag');
     if (savedGamertag) {
@@ -54,13 +58,11 @@ const generateBaseballGamertag = () => {
     return newGamertag;
 };
 
-//Function to adjust the grid's scaling dynamically
+//Adjusts grid and card sizes based on screed width
 const adjustGridScaling = () => {
-    //Select the grid and all cards
     const grid = document.querySelector('.memory-card-grid');
     const cards = document.querySelectorAll('.card');
 
-    //Avoids errors if grid is missing
     if (!grid || cards.length === 0) return;
 
     const containerWidth = grid.offsetWidth;
@@ -72,8 +74,7 @@ const adjustGridScaling = () => {
     });
 };
 
-
-// Leaderboard handling
+//Manages leaderboard storage, sorting, and retrieval
 class LeaderboardManager {
     constructor() {
         this.maxEntries = 5;
@@ -109,7 +110,7 @@ class LeaderboardManager {
         return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
     };
 
-    //Generates random leaderboard entries
+    //Generates placeholder leaderboard scores for offline play
     generateRandomEntries() {
         const adjectives = ['Slugging', 'Speedy', 'Golden', 'Swift', 'Iron'];
         const nouns = ['Bat', 'Glove', 'Slider', 'Ace', 'Star'];
@@ -138,6 +139,7 @@ class LeaderboardManager {
         this.saveToStorage();
     }
 
+    //Adds a new score to leaderboard
     addScore(timeInSeconds, moves, playerName) {
         const newEntry = {
             timeInSeconds,
@@ -281,11 +283,10 @@ class MemoryGame extends React.Component {
             timerActive: false,
             gameWon: false,
             gamePhase: this.state.agreedToRules ? 'playing' : 'howToPlay'
-        }, () => {
-            //this.announce('New game started');
         });
     };
 
+    //Flip cards, check if match, and adjust gamephase based on state
     handleCardClick = (clickedIndex) => {
         const { flipped, matched, moves, cards, gamePhase, timerActive } = this.state;
         
@@ -302,7 +303,6 @@ class MemoryGame extends React.Component {
 
         const newFlipped = [...flipped, clickedIndex];
         this.setState({ flipped: newFlipped });
-        //this.announce(`Card revealed: ${cards[clickedIndex].description}`);
 
         if (newFlipped.length === 2) {
             this.setState({ moves: moves + 1 });
@@ -316,7 +316,6 @@ class MemoryGame extends React.Component {
                     gamePhase: newMatched.length === cards.length ? 'gameOver' : 'playing',
                     gameWon: newMatched.length === cards.length
                 }, () => {
-                    //this.announce('Match found! ' + cards[firstIndex].description);
                     if (this.state.gameWon) {
                         this.handleGameWon();
                     }
@@ -324,7 +323,6 @@ class MemoryGame extends React.Component {
             } else {
                 setTimeout(() => {
                     this.setState({ flipped: [] });
-                    //this.announce('No match. Cards flipped back.');
                 }, 1000);
             }
         }
@@ -335,9 +333,9 @@ class MemoryGame extends React.Component {
         this.stopTimer();
         leaderboard.addScore(timer, moves, playerGamertag);
         this.setState({ gamePhase: 'gameOver' });
-        //this.announce(`Congratulations! Game completed in ${this.formatTime(timer)} with ${moves} moves!`);
     };
 
+    //How to play panel
     renderHowToPlay = () => {
         const { agreedToRules, playerGamertag } = this.state;
     
@@ -349,7 +347,7 @@ class MemoryGame extends React.Component {
         }, React.createElement('div', {
             className: 'how-to-play-panel'
         }, [
-            // Title and Instructions
+            //Title and Instructions
             React.createElement('h2', {
                 key: 'title',
                 id: 'howToPlayTitle',
@@ -376,7 +374,7 @@ class MemoryGame extends React.Component {
                 ])
             ]),
     
-            // Agreement checkbox
+            //Agreement checkbox
             React.createElement('div', {
                 key: 'agreement',
                 className: 'how-to-play-agreement'
@@ -394,7 +392,7 @@ class MemoryGame extends React.Component {
                 }, 'I agree to the game rules and policies')
             ]),
     
-            // Start button
+            //Start button
             React.createElement('button', {
                 key: 'start-button',
                 onClick: () => {
@@ -405,7 +403,7 @@ class MemoryGame extends React.Component {
                 className: `how-to-play-start-button ${agreedToRules ? '' : 'disabled'}`
             }, 'Start Game'),
     
-            // Link boxes container (now below the start button)
+            //Link boxes container
             React.createElement('div', {
                 key: 'link-boxes',
                 className: 'legal-links-container'
@@ -430,6 +428,7 @@ class MemoryGame extends React.Component {
     );
 };
     
+//Game over panel
 renderGameOver = () => {
     const { moves, leaderboard, playerGamertag, timer } = this.state;
 
