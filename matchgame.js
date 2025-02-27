@@ -415,12 +415,12 @@ class MemoryGame extends React.Component {
                 }, 'Support'),
                 React.createElement('button', {
                     key: 'tou',
-                    onClick: () => window.open('https://www.mlb.com/official-information/terms-of-use'),
+                    onClick: () => window.open('https://www.mlb.com/app/ballpark/official-information/terms-of-use'),
                     className: 'legal-link'
                 }, 'MLB TOU'),
                 React.createElement('button', {
                     key: 'privacy',
-                    onClick: () => window.open('https://www.mlb.com/official-information/privacy-policy'),
+                    onClick: () => window.open('https://www.mlb.com/app/ballpark/official-information/privacy-policy'),
                     className: 'legal-link'
                 }, 'MLB Privacy Policy')
             ])
@@ -504,12 +504,12 @@ renderGameOver = () => {
             React.createElement('button', {
                 key: 'tou',
                 className: 'legal-link',
-                onClick: () => window.open('https://www.mlb.com/official-information/terms-of-use')
+                onClick: () => window.open('https://www.mlb.com/app/ballpark/official-information/terms-of-use')
             }, 'MLB TOU'),
             React.createElement('button', {
                 key: 'privacy',
                 className: 'legal-link',
-                onClick: () => window.open('https://www.mlb.com/official-information/privacy-policy')
+                onClick: () => window.open('https://www.mlb.com/app/ballpark/official-information/privacy-policy')
             }, 'MLB Privacy Policy')
         ]);
     
