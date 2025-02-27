@@ -149,7 +149,7 @@ body {
 }
 
 .how-to-play-start-button.disabled {
-    background-color: #ccc;
+    background-color: #7a7a7a;
     cursor: not-allowed;
 }
 
