@@ -410,7 +410,7 @@ class MemoryGame extends React.Component {
             }, [
                 React.createElement('button', {
                     key: 'support',
-                    onClick: () => window.open('https://www.mlb.com/rays/official-information/contact'),
+                    onClick: () => window.open('https://www.mlb.com/app/ballpark/rays/official-information/contact'),
                     className: 'legal-link'
                 }, 'Support'),
                 React.createElement('button', {
@@ -499,7 +499,7 @@ renderGameOver = () => {
             React.createElement('button', {
                 key: 'support',
                 className: 'legal-link',
-                onClick: () => window.open('https://www.mlb.com/rays/official-information/contact')
+                onClick: () => window.open('https://www.mlb.com/app/ballpark/rays/official-information/contact')
             }, 'Support'),
             React.createElement('button', {
                 key: 'tou',
